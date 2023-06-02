@@ -2,99 +2,15 @@
 <html>
 
 <head>
-    <title>Login to your account | yEAh Accounts</title>
+    <title>Log in to your account | yEAh Accounts</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
-    <style>
-        .loading {
-            display: none;
-            margin-top: 20px;
-            text-align: center;
-            color: white;
-        }
-
-        .loading-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background-color: #111827;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 9999;
-        }
-
-        .loader {
-            border: 4px solid rgba(255, 255, 255, 0.3);
-            border-top: 4px solid white;
-            border-radius: 50%;
-            width: 40px;
-            height: 40px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="/system/all/form.css">
 </head>
 
 <body bgcolor="#111827">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    colors: {
-                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
-                    }
-                },
-                fontFamily: {
-                    'body': [
-                        'Inter',
-                        'ui-sans-serif',
-                        'system-ui',
-                        '-apple-system',
-                        'system-ui',
-                        'Segoe UI',
-                        'Roboto',
-                        'Helvetica Neue',
-                        'Arial',
-                        'Noto Sans',
-                        'sans-serif',
-                        'Apple Color Emoji',
-                        'Segoe UI Emoji',
-                        'Segoe UI Symbol',
-                        'Noto Color Emoji'
-                    ],
-                    'sans': [
-                        'Inter',
-                        'ui-sans-serif',
-                        'system-ui',
-                        '-apple-system',
-                        'system-ui',
-                        'Segoe UI',
-                        'Roboto',
-                        'Helvetica Neue',
-                        'Arial',
-                        'Noto Sans',
-                        'sans-serif',
-                        'Apple Color Emoji',
-                        'Segoe UI Emoji',
-                        'Segoe UI Symbol',
-                        'Noto Color Emoji'
-                    ]
-                }
-            }
-        }
-    </script>
+
     <div class="loading-overlay">
         <div class="loader"></div>
     </div>
@@ -119,7 +35,7 @@
                                 class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
                             <input type="text" id="username" name="username"
                                 class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="@username" required>
+                                placeholder="username" required>
                         </div>
                         <div>
                             <label for="password"
@@ -133,7 +49,7 @@
                             class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log
                             in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don't have an account? <a style="color:#ff4747;" href="/create-account"
+                            Don't have an account? <a style="color:#ff4747;" href="/create"
                                 class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create an
                                 account</a>
                         </p>
@@ -149,96 +65,14 @@
             </a>
         </div>
     </section>
-    <script src="/assets/js/sha256.js"></script>
     <script>
         window.addEventListener('load', function () {
             var loaderOverlay = document.querySelector('.loading-overlay');
             loaderOverlay.style.display = 'none';
         });
     </script>
-
-    <script>
-        // Login form submit event
-        document.getElementById('loginForm').addEventListener('submit', function (event) {
-            event.preventDefault(); // Prevent form submission
-
-            var username = document.getElementById('username').value;
-            var password = document.getElementById('password').value;
-
-            // Fetch the JSON data from the database (replace this with your own logic)
-            fetch('/data/accounts.json')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    var foundUser = data.find(function (user) {
-                        return user.username === username;
-                    });
-
-                    if (!foundUser) {
-                        alert('Account does not exist!');
-                    } else {
-                        var encryptedPassword = sha256(password);
-
-                        if (foundUser.password === encryptedPassword) {
-                            var userData = {
-                                username: foundUser.username,
-                                admin: foundUser.admin
-                            };
-
-                            // Write the user data to cookie or local storage
-                            writeUserData(userData);
-
-                            // Display success message
-                            var successMessage = document.createElement('p');
-                            successMessage.textContent = 'Logged in!';
-                            document.body.appendChild(successMessage);
-
-                            // Redirect to the specified URL or default to www.yeahgames.net
-                            var continueURL = getParameterByName('continue');
-                            if (continueURL) {
-                                setTimeout(function () {
-                                    window.location.href = continueURL;
-                                }, 2000); // Redirect after 2 seconds
-                            } else {
-                                setTimeout(function () {
-                                    window.location.href = 'https://www.yeahgames.net';
-                                }, 2000); // Redirect after 2 seconds
-                            }
-                        } else {
-                            alert('Incorrect password!');
-                        }
-                    }
-                })
-                .catch(function (error) {
-                    console.error('Error:', error);
-                    alert('An error occurred while logging in. Please try again later.');
-                });
-        });
-
-        // Function to write user data to cookie or local storage
-        function writeUserData(userData) {
-            // Convert the user data to JSON string
-            var jsonData = JSON.stringify(userData);
-
-            // Write the JSON data to cookie or local storage
-            // Example: Writing to cookie
-            document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
-
-            // Example: Writing to local storage
-            localStorage.setItem('yeahgames_userdata', jsonData);
-        }
-
-        // Function to get the value of a query parameter from the URL
-        function getParameterByName(name) {
-            name = name.replace(/[\[\]]/g, '\\$&');
-            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-                results = regex.exec(window.location.href);
-            if (!results) return null;
-            if (!results[2]) return '';
-            return decodeURIComponent(results[2].replace(/\+/g, ' '));
-        }
-    </script>
+    <script src="/system/all/main.js"></script>
+    <script src="/system/login/main.js"></script>
 </body>
 
 </html>
