@@ -1,5 +1,40 @@
 <body bgcolor="#111827">
 <script src="https://cdn.tailwindcss.com"></script>
+
+<style>
+  .loading-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #111827;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 9999;
+  }
+  
+  .loader {
+      border: 4px solid rgba(255, 255, 255, 0.3);
+      border-top: 4px solid white;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      animation: spin 1s linear infinite;
+  }
+  
+  @keyframes spin {
+      0% {
+          transform: rotate(0deg);
+      }
+      100% {
+          transform: rotate(360deg);
+      }
+  }
+</style>
+
+
 <script>
     tailwind.config = {
   theme: {
@@ -47,6 +82,10 @@
   }
 }
     </script>
+    <div class="loading-overlay">
+      <div class="loader"></div>
+  </div>
+  
 <section class="bg-gray-50 dark:bg-gray-900">
     <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-screen lg:py-0">
         <a href="#" class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
@@ -79,11 +118,19 @@
                     </div>
                     <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
                     <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Log <input type="file" name="" id=""></a>
+                        Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</a>
                     </p>
-                </form>
+                </form
             </div>
         </div>
     </div>
   </section>
+  <script>
+    window.addEventListener('load', function () {
+        var loaderOverlay = document.querySelector('.loading-overlay');
+        loaderOverlay.style.display = 'none';
+    });
+</script>
+
+
 </body>
