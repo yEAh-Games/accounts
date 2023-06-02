@@ -14,7 +14,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             });
 
             if (!foundUser) {
-                alert('Account does not exist! Create it at https://accounts.yeahgames.net/create');
+                alert('Account does not exist! Create it at https://accounts.yeahgames.net/create, or by clicking the link below the log-in button.');
             } else {
                 var encryptedPassword = sha256(password);
 
