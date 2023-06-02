@@ -166,7 +166,7 @@
             var password = document.getElementById('password').value;
 
             // Fetch the JSON data from the database (replace this with your own logic)
-            fetch('https://raw.githubusercontent.com/yEAh-Games/accounts/main/data/accounts.json')
+            fetch('/data/accounts.json')
                 .then(function (response) {
                     return response.json();
                 })
