@@ -41,17 +41,21 @@ document.getElementById("createAccountForm").addEventListener("submit", function
         .then(function (response) {
             if (response.ok) {
                 // Update loading message
-                loadingMessage.textContent = "Encrypting password...";
+                loadingMessage.textContent = "Checking username availability...";
 
                 return response.json();
             } else {
                 throw new Error("Failed to retrieve file content.");
             }
         })
-
         .then(function (existingData) {
             // Decode existing content from base64
             var existingContent = atob(existingData.content);
+
+            // Check if username already exists
+            if (existingContent.includes('"' + username + '"')) {
+                throw new Error("Username taken.");
+            }
 
             // Split the existing content by lines
             var lines = existingContent.split("\n");
@@ -60,6 +64,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             while (lines.length > 0 && lines[lines.length - 1].trim() === "") {
                 lines.pop();
             }
+
             // Append new line with the updated data
             // Check if there are existing lines
             if (lines.length > 0) {
@@ -87,7 +92,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
                 },
                 body: JSON.stringify({
                     content: updatedBase64Content,
-                    message: "Create account: " + username,
+                    message: "Created account: @" + username,
                     sha: existingData.sha
                 })
             });
@@ -112,7 +117,11 @@ document.getElementById("createAccountForm").addEventListener("submit", function
         })
         .catch(function (error) {
             console.error("Error:", error);
-            alert("An error occurred. Please try again later.");
+            if (error.message === "Username taken.") {
+                alert("Username is already taken. Please choose a different username.");
+            } else {
+                alert("An error occurred. Please try again later.");
+            }
         })
         .finally(function () {
             // Re-enable the form after processing
@@ -123,6 +132,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             loading.style.display = "none";
         });
 });
+
 
 // SHA-256 encryption (source: https://geraintluff.github.io/sha256/)
 function sha256(ascii) {
