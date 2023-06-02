@@ -1,5 +1,8 @@
-<body bgcolor="#111827">
-    <script src="https://cdn.tailwindcss.com"></script>
+<!DOCTYPE html>
+
+<head>
+    <title>Create a network account | yEAh Accounts</title>
+    <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
     <style>
         .loading {
             display: none;
@@ -7,8 +10,7 @@
             text-align: center;
             color: white;
         }
-    </style>
-    <style>
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -21,7 +23,7 @@
             align-items: center;
             z-index: 9999;
         }
-        
+
         .loader {
             border: 4px solid rgba(255, 255, 255, 0.3);
             border-top: 4px solid white;
@@ -30,17 +32,21 @@
             height: 40px;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             0% {
                 transform: rotate(0deg);
             }
+
             100% {
                 transform: rotate(360deg);
             }
         }
     </style>
-    
+</head>
+
+<body bgcolor="#111827">
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
             theme: {
@@ -91,7 +97,7 @@
     <div class="loading-overlay">
         <div class="loader"></div>
     </div>
-    
+
     <section class="bg-gray-50 dark:bg-gray-900">
         <br>
 
@@ -135,7 +141,8 @@
                     </form>
                 </div>
             </div>
-            <a href="https://www.yeahgames.net" class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+            <a href="https://www.yeahgames.net"
+                class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-40 h-40" src="https://cdn.yeahgames.net/img/branding/logos/text/red.svg" alt="logo">
             </a>
         </div>
@@ -147,5 +154,5 @@
             loaderOverlay.style.display = 'none';
         });
     </script>
-    
+
 </body>
