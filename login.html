@@ -1,136 +1,181 @@
+<!DOCTYPE html>
+<head>
+    <title>Login | yEAh Accounts</title>
+    <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
+    <style>
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #111827;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .loader {
+            border: 4px solid rgba(255, 255, 255, 0.3);
+            border-top: 4px solid white;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+</head>
+
 <body bgcolor="#111827">
-<script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/crypto-js/3.1.2/rollups/sha256.js"></script>
+    <script>
+        window.addEventListener('DOMContentLoaded', function () {
+            var loadingOverlay = document.querySelector('.loading-overlay');
+            var loadingMessage = document.getElementById('loadingMessage');
+            var loginForm = document.getElementById('loginForm');
 
-<style>
-  .loading-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #111827;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-  }
-  
-  .loader {
-      border: 4px solid rgba(255, 255, 255, 0.3);
-      border-top: 4px solid white;
-      border-radius: 50%;
-      width: 40px;
-      height: 40px;
-      animation: spin 1s linear infinite;
-  }
-  
-  @keyframes spin {
-      0% {
-          transform: rotate(0deg);
-      }
-      100% {
-          transform: rotate(360deg);
-      }
-  }
-</style>
+            loginForm.addEventListener('submit', function (event) {
+                event.preventDefault();
 
+                var username = document.getElementById('loginUsername').value;
+                var password = document.getElementById('loginPassword').value;
 
-<script>
-    tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: {"50":"#eff6ff","100":"#dbeafe","200":"#bfdbfe","300":"#93c5fd","400":"#60a5fa","500":"#3b82f6","600":"#2563eb","700":"#1d4ed8","800":"#1e40af","900":"#1e3a8a"}
-      }
-    },
-    fontFamily: {
-      'body': [
-    'Inter', 
-    'ui-sans-serif', 
-    'system-ui', 
-    '-apple-system', 
-    'system-ui', 
-    'Segoe UI', 
-    'Roboto', 
-    'Helvetica Neue', 
-    'Arial', 
-    'Noto Sans', 
-    'sans-serif', 
-    'Apple Color Emoji', 
-    'Segoe UI Emoji', 
-    'Segoe UI Symbol', 
-    'Noto Color Emoji'
-  ],
-      'sans': [
-    'Inter', 
-    'ui-sans-serif', 
-    'system-ui', 
-    '-apple-system', 
-    'system-ui', 
-    'Segoe UI', 
-    'Roboto', 
-    'Helvetica Neue', 
-    'Arial', 
-    'Noto Sans', 
-    'sans-serif', 
-    'Apple Color Emoji', 
-    'Segoe UI Emoji', 
-    'Segoe UI Symbol', 
-    'Noto Color Emoji'
-  ]
-    }
-  }
-}
+                loadingOverlay.style.display = 'flex';
+                loadingMessage.textContent = 'Fetching database...';
+
+                // Simulate fetching the database
+                setTimeout(function () {
+                    loadingMessage.textContent = 'Encrypting password...';
+
+                    // Simulate password encryption
+                    setTimeout(function () {
+                        // Encrypt password
+                        var encryptedPassword = sha256(password);
+
+                        // Fetch the JSON file
+                        fetch('https://raw.githubusercontent.com/yEAh-Games/accounts/main/data/accounts.json')
+                            .then(function (response) {
+                                if (response.ok) {
+                                    return response.json();
+                                } else {
+                                    throw new Error('Failed to fetch the database.');
+                                }
+                            })
+                            .then(function (data) {
+                                // Check if the account exists
+                                var account = data.find(function (item) {
+                                    return item.username === username;
+                                });
+
+                                if (account) {
+                                    // Check if the password matches
+                                    if (account.password === encryptedPassword) {
+                                        // Set the login cookie
+                                        setCookie('yeahgames-login', JSON.stringify({
+                                            username: account.username,
+                                            admin: account.admin,
+                                            // Add more data from the JSON file if needed
+                                        }), 30);
+
+                                        // Display success message
+                                        loadingMessage.textContent = 'Logged in!';
+                                        loginForm.reset();
+
+                                        // Redirect after a delay
+                                        var queryString = window.location.search;
+                                        var continueURL = queryString ? getContinueURL(queryString) : 'https://www.yeahgames.net';
+                                        setTimeout(function () {
+                                            window.location.href = continueURL;
+                                        }, 2000);
+                                    } else {
+                                        // Display error message for incorrect password
+                                        displayError('Incorrect password. Please check your password.');
+                                    }
+                                } else {
+                                    // Display error message for non-existent account
+                                    displayError('Account does not exist. Please check your username.');
+                                }
+                            })
+                            .catch(function (error) {
+                                // Display error message for failed database fetch
+                                displayError(error.message);
+                            })
+                            .finally(function () {
+                                loadingOverlay.style.display = 'none';
+                            });
+                    }, 1000);
+                }, 1000);
+            });
+
+            function setCookie(name, value, days) {
+                var expires = '';
+
+                if (days) {
+                    var date = new Date();
+                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                    expires = '; expires=' + date.toUTCString();
+                }
+
+                document.cookie = name + '=' + (value || '') + expires + '; path=/; domain=.yeahgames.net';
+            }
+
+            function getContinueURL(queryString) {
+                var params = new URLSearchParams(queryString);
+                return params.get('continue') || 'https://www.yeahgames.net';
+            }
+
+            function displayError(message) {
+                // Display error message
+                alert(message);
+                loadingOverlay.style.display = 'none';
+            }
+        });
     </script>
     <div class="loading-overlay">
-      <div class="loader"></div>
-  </div>
-  
-<section class="bg-gray-50 dark:bg-gray-900">
-    <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-screen lg:py-0">
-        <a href="#" class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
-            <img class="w-40 h-40" src="https://cdn.yeahgames.net/img/branding/logos/text/red.svg" alt="logo">    
-        </a>
-        <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
-            <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                    Create a network account
-                </h1>
-                <form class="space-y-4 md:space-y-6" action="#">
-                    <div>
-                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                        <input type="email" name="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="@username" required="">
-                    </div>
-                    <div>
-                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                        <input type="password" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required="">
-                    </div>
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-start">
-                            <div class="flex items-center h-5">
-                              <input id="remember" aria-describedby="remember" type="checkbox" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-primary-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-primary-600 dark:ring-offset-gray-800" required="">
-                            </div>
-                            <div class="ml-3 text-sm">
-                              <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
-                            </div>
-                        </div>
-                        <a href="mailto:accounts+forgot@yeahgames.net" class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500">Forgot password?</a>
-                    </div>
-                    <button type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Sign in</button>
-                    <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                        Already have an account? <a href="/login" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Log in</a>
-                    </p>
-                </form
-            </div>
-        </div>
+        <div class="loader"></div>
     </div>
-  </section>
-  <script>
-    window.addEventListener('load', function () {
-        var loaderOverlay = document.querySelector('.loading-overlay');
-        loaderOverlay.style.display = 'none';
-    });
-</script>
 
-
+    <section class="bg-gray-50 dark:bg-gray-900">
+        <br>
+        <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-screen lg:py-0">
+            <br>
+            <br>
+            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+                <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
+                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Login to your network account
+                    </h1>
+                    <form id="loginForm" class="space-y-4 md:space-y-6">
+                        <div>
+                            <label for="loginUsername" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                            <input type="text" id="loginUsername" name="loginUsername" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="@username" required>
+                        </div>
+                        <div>
+                            <label for="loginPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" id="loginPassword" name="loginPassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                        </div>
+                        <button style="background-color:#ff4747;" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+                        <p class="text-sm font-light text-gray-500 dark:text-gray-400">
+                            Don't have an account? <a style="color:#ff4747;" href="/create-account" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create an account</a>
+                        </p>
+                    </form>
+                </div>
+            </div>
+            <a href="https://www.yeahgames.net" class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+                <img class="w-40 h-40" src="https://cdn.yeahgames.net/img/branding/logos/text/red.svg" alt="logo">
+            </a>
+        </div>
+    </section>
 </body>
