@@ -1,8 +1,17 @@
 <!DOCTYPE html>
+<html>
+
 <head>
-    <title>Login | yEAh Accounts</title>
+    <title>Login to your account | yEAh Accounts</title>
     <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
     <style>
+        .loading {
+            display: none;
+            margin-top: 20px;
+            text-align: center;
+            color: white;
+        }
+
         .loading-overlay {
             position: fixed;
             top: 0;
@@ -39,141 +48,197 @@
 
 <body bgcolor="#111827">
     <script src="https://cdn.tailwindcss.com"></script>
-    <script src="https://cdn.jsdelivr.net/crypto-js/3.1.2/rollups/sha256.js"></script>
     <script>
-        window.addEventListener('DOMContentLoaded', function () {
-            var loadingOverlay = document.querySelector('.loading-overlay');
-            var loadingMessage = document.getElementById('loadingMessage');
-            var loginForm = document.getElementById('loginForm');
-
-            loginForm.addEventListener('submit', function (event) {
-                event.preventDefault();
-
-                var username = document.getElementById('loginUsername').value;
-                var password = document.getElementById('loginPassword').value;
-
-                loadingOverlay.style.display = 'flex';
-                loadingMessage.textContent = 'Fetching database...';
-
-                // Simulate fetching the database
-                setTimeout(function () {
-                    loadingMessage.textContent = 'Encrypting password...';
-
-                    // Simulate password encryption
-                    setTimeout(function () {
-                        // Encrypt password
-                        var encryptedPassword = sha256(password);
-
-                        // Fetch the JSON file
-                        fetch('https://raw.githubusercontent.com/yEAh-Games/accounts/main/data/accounts.json')
-                            .then(function (response) {
-                                if (response.ok) {
-                                    return response.json();
-                                } else {
-                                    throw new Error('Failed to fetch the database.');
-                                }
-                            })
-                            .then(function (data) {
-                                // Check if the account exists
-                                var account = data.find(function (item) {
-                                    return item.username === username;
-                                });
-
-                                if (account) {
-                                    // Check if the password matches
-                                    if (account.password === encryptedPassword) {
-                                        // Set the login cookie
-                                        setCookie('yeahgames-login', JSON.stringify({
-                                            username: account.username,
-                                            admin: account.admin,
-                                            // Add more data from the JSON file if needed
-                                        }), 30);
-
-                                        // Display success message
-                                        loadingMessage.textContent = 'Logged in!';
-                                        loginForm.reset();
-
-                                        // Redirect after a delay
-                                        var queryString = window.location.search;
-                                        var continueURL = queryString ? getContinueURL(queryString) : 'https://www.yeahgames.net';
-                                        setTimeout(function () {
-                                            window.location.href = continueURL;
-                                        }, 2000);
-                                    } else {
-                                        // Display error message for incorrect password
-                                        displayError('Incorrect password. Please check your password.');
-                                    }
-                                } else {
-                                    // Display error message for non-existent account
-                                    displayError('Account does not exist. Please check your username.');
-                                }
-                            })
-                            .catch(function (error) {
-                                // Display error message for failed database fetch
-                                displayError(error.message);
-                            })
-                            .finally(function () {
-                                loadingOverlay.style.display = 'none';
-                            });
-                    }, 1000);
-                }, 1000);
-            });
-
-            function setCookie(name, value, days) {
-                var expires = '';
-
-                if (days) {
-                    var date = new Date();
-                    date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-                    expires = '; expires=' + date.toUTCString();
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: { "50": "#eff6ff", "100": "#dbeafe", "200": "#bfdbfe", "300": "#93c5fd", "400": "#60a5fa", "500": "#3b82f6", "600": "#2563eb", "700": "#1d4ed8", "800": "#1e40af", "900": "#1e3a8a" }
+                    }
+                },
+                fontFamily: {
+                    'body': [
+                        'Inter',
+                        'ui-sans-serif',
+                        'system-ui',
+                        '-apple-system',
+                        'system-ui',
+                        'Segoe UI',
+                        'Roboto',
+                        'Helvetica Neue',
+                        'Arial',
+                        'Noto Sans',
+                        'sans-serif',
+                        'Apple Color Emoji',
+                        'Segoe UI Emoji',
+                        'Segoe UI Symbol',
+                        'Noto Color Emoji'
+                    ],
+                    'sans': [
+                        'Inter',
+                        'ui-sans-serif',
+                        'system-ui',
+                        '-apple-system',
+                        'system-ui',
+                        'Segoe UI',
+                        'Roboto',
+                        'Helvetica Neue',
+                        'Arial',
+                        'Noto Sans',
+                        'sans-serif',
+                        'Apple Color Emoji',
+                        'Segoe UI Emoji',
+                        'Segoe UI Symbol',
+                        'Noto Color Emoji'
+                    ]
                 }
-
-                document.cookie = name + '=' + (value || '') + expires + '; path=/; domain=.yeahgames.net';
             }
-
-            function getContinueURL(queryString) {
-                var params = new URLSearchParams(queryString);
-                return params.get('continue') || 'https://www.yeahgames.net';
-            }
-
-            function displayError(message) {
-                // Display error message
-                alert(message);
-                loadingOverlay.style.display = 'none';
-            }
-        });
+        }
     </script>
-
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
 
     <section class="bg-gray-50 dark:bg-gray-900">
         <br>
+
         <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-screen lg:py-0">
             <br>
             <br>
-            <div class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
+
+            <div
+                class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
-                    <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                        Login to your network account
+                    <h1
+                        class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
+                        Login to your account
                     </h1>
                     <form id="loginForm" class="space-y-4 md:space-y-6">
                         <div>
-                            <label for="loginUsername" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
-                            <input type="text" id="loginUsername" name="loginUsername" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="@username" required>
+                            <label for="username"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Username</label>
+                            <input type="text" id="username" name="username"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="@username" required>
                         </div>
                         <div>
-                            <label for="loginPassword" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
-                            <input type="password" id="loginPassword" name="loginPassword" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                            <label for="password"
+                                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                            <input type="password" id="password" name="password" placeholder="••••••••"
+                                class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                required>
                         </div>
-                        <button style="background-color:#ff4747;" type="submit" class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Login</button>
+
+                        <button style="background-color:#ff4747;" type="submit"
+                            class="w-full text-white bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Log
+                            in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
-                            Don't have an account? <a style="color:#ff4747;" href="/create-account" class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create an account</a>
+                            Don't have an account? <a style="color:#ff4747;" href="/create-account"
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create an
+                                account</a>
                         </p>
+                        <div class="loading">
+                            <p style="color:white!important" id="loadingMessage">Please wait...</p>
+                        </div>
                     </form>
                 </div>
             </div>
-            <a href="https://www.yeahgames.net" class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
+            <a href="https://www.yeahgames.net"
+                class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
                 <img class="w-40 h-40" src="https://cdn.yeahgames.net/img/branding/logos/text/red.svg" alt="logo">
             </a>
         </div>
     </section>
+    <script src="/assets/js/sha256.js"></script>
+    <script>
+        window.addEventListener('load', function () {
+            var loaderOverlay = document.querySelector('.loading-overlay');
+            loaderOverlay.style.display = 'none';
+        });
+    </script>
+
+    <script>
+        // Login form submit event
+        document.getElementById('loginForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent form submission
+
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+
+            // Fetch the JSON data from the database (replace this with your own logic)
+            fetch('https://raw.githubusercontent.com/yEAh-Games/accounts/main/data/accounts.json')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    var foundUser = data.find(function (user) {
+                        return user.username === username;
+                    });
+
+                    if (!foundUser) {
+                        alert('Account does not exist!');
+                    } else {
+                        var encryptedPassword = sha256(password);
+
+                        if (foundUser.password === encryptedPassword) {
+                            var userData = {
+                                username: foundUser.username,
+                                admin: foundUser.admin
+                            };
+
+                            // Write the user data to cookie or local storage
+                            writeUserData(userData);
+
+                            // Display success message
+                            var successMessage = document.createElement('p');
+                            successMessage.textContent = 'Logged in!';
+                            document.body.appendChild(successMessage);
+
+                            // Redirect to the specified URL or default to www.yeahgames.net
+                            var continueURL = getParameterByName('continue');
+                            if (continueURL) {
+                                setTimeout(function () {
+                                    window.location.href = continueURL;
+                                }, 2000); // Redirect after 2 seconds
+                            } else {
+                                setTimeout(function () {
+                                    window.location.href = 'https://www.yeahgames.net';
+                                }, 2000); // Redirect after 2 seconds
+                            }
+                        } else {
+                            alert('Incorrect password!');
+                        }
+                    }
+                })
+                .catch(function (error) {
+                    console.error('Error:', error);
+                    alert('An error occurred while logging in. Please try again later.');
+                });
+        });
+
+        // Function to write user data to cookie or local storage
+        function writeUserData(userData) {
+            // Convert the user data to JSON string
+            var jsonData = JSON.stringify(userData);
+
+            // Write the JSON data to cookie or local storage
+            // Example: Writing to cookie
+            document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
+
+            // Example: Writing to local storage
+            localStorage.setItem('yeahgames_userdata', jsonData);
+        }
+
+        // Function to get the value of a query parameter from the URL
+        function getParameterByName(name) {
+            name = name.replace(/[\[\]]/g, '\\$&');
+            var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+                results = regex.exec(window.location.href);
+            if (!results) return null;
+            if (!results[2]) return '';
+            return decodeURIComponent(results[2].replace(/\+/g, ' '));
+        }
+    </script>
 </body>
+
+</html>
