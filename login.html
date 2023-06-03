@@ -71,6 +71,19 @@
         </div>
     </section>
     <script>
+        (function () {
+            var cookieExists = document.cookie.indexOf('yeahgames_userdata') > -1;
+
+            if (cookieExists) {
+                var urlParams = new URLSearchParams(window.location.search);
+                var continueUrl = urlParams.get('continue');
+                var redirectUrl = continueUrl || 'https://www.yeahgames.net';
+                window.location.href = redirectUrl;
+            }
+        })();
+
+    </script>
+    <script>
         window.addEventListener('load', function () {
             var loaderOverlay = document.querySelector('.loading-overlay');
             loaderOverlay.style.display = 'none';
