@@ -74,6 +74,11 @@ document.getElementById("createAccountForm").addEventListener("submit", function
 
             // Append new line with the updated data
             lines.push(jsonData);
+            // Add closing square bracket if there are existing lines
+            if (lines.length > 1) {
+                lines[lines.length - 1] = lines[lines.length - 1].replace("}", "},");
+            }
+
 
             // Join the lines back together
             var updatedContent = lines.join("\n");
