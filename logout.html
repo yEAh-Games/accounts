@@ -1,0 +1,21 @@
+---
+---
+<html>
+
+<head>
+    {% include gtag.html %}
+    <link rel="canonical" href="https://accounts.yeahgames.net/logout" />
+    <link rel="stylesheet" href="/system/all/form.css">
+    <script>
+        function deleteCookie(cookieName) {
+            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.yeahgames.net;`;
+        }
+        deleteCookie("yeahgames_userdata");
+        window.location.href = "https://accounts.yeahgames.net/login";
+
+    </script>
+    <div class="loading-overlay">
+        <div class="loader"></div>
+    </div>
+
+</html>
