@@ -120,6 +120,30 @@ function getParameterByName(name) {
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
 }
 
+var rememberCheckbox = document.getElementById('remember');
+
+rememberCheckbox.addEventListener('change', function () {
+  if (rememberCheckbox.checked) {
+    setCookieExpirationDate(365); // Set cookie expiration to 1 year
+  } else {
+    setCookieExpirationDate(null); // Set cookie expiration to session (null value)
+  }
+});
+
+function setCookieExpirationDate(days) {
+  var date = new Date();
+
+  if (days) {
+    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
+  } else {
+    date.setTime(date.getTime()); // Expire immediately (session cookie)
+  }
+
+  var expires = "expires=" + date.toUTCString();
+  document.cookie = "yeahgames_userdata=; " + expires + "; domain=yeahgames.net; path=/";
+  document.cookie = "yeahgames_v=; " + expires + "; domain=yeahgames.net; path=/";
+}
+
 var storedUserData = getLoggedInUserData();
 
 if (storedUserData) {
