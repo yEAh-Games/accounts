@@ -61,7 +61,11 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             var updatedContent = existingContent.slice(0, -1);
 
             // Append new line with the updated data and closing bracket
-            updatedContent += "," + jsonData + "]";
+            if (updatedContent === "") {
+                updatedContent += jsonData + "]";
+            } else {
+                updatedContent += "," + jsonData + "]";
+            }
 
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
