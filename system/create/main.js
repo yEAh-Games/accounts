@@ -88,7 +88,6 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             }
         })
         .then(function () {
-            // Redirect to login page with created=true query parameter
             window.location.href = "/login?created=true";
         })
         .catch(function (error) {
