@@ -96,10 +96,14 @@ function writeUserData(userData) {
   var encasedData = encasingStart + '---' + userData.username + ',admin=' + userData.admin + '---' + encasingEnd;
   var encryptedData = sha256(encasedData);
 
-  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
-  document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
+  var rememberCheckbox = document.getElementById('remember');
+  var expiration = rememberCheckbox.checked ? 'expires=365' : 'expires=0'; // 1 year or session expiration
+
+  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/; ' + expiration;
+  document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/; ' + expiration;
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
+
 
 function redirectToContinueURL(userData) {
   var continueURL = getParameterByName('continue');
@@ -118,30 +122,6 @@ function getParameterByName(name) {
   if (!results) return null;
   if (!results[2]) return '';
   return decodeURIComponent(results[2].replace(/\+/g, ' '));
-}
-
-var rememberCheckbox = document.getElementById('remember');
-
-rememberCheckbox.addEventListener('change', function () {
-  if (rememberCheckbox.checked) {
-    setCookieExpirationDate(365); // Set cookie expiration to 1 year
-  } else {
-    setCookieExpirationDate(null); // Set cookie expiration to session (null value)
-  }
-});
-
-function setCookieExpirationDate(days) {
-  var date = new Date();
-
-  if (days) {
-    date.setTime(date.getTime() + days * 24 * 60 * 60 * 1000);
-  } else {
-    date.setTime(date.getTime()); // Expire immediately (session cookie)
-  }
-
-  var expires = "expires=" + date.toUTCString();
-  document.cookie = "yeahgames_userdata=; " + expires + "; domain=yeahgames.net; path=/";
-  document.cookie = "yeahgames_v=; " + expires + "; domain=yeahgames.net; path=/";
 }
 
 var storedUserData = getLoggedInUserData();
