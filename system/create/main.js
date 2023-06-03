@@ -57,27 +57,11 @@ document.getElementById("createAccountForm").addEventListener("submit", function
                 throw new Error("Username taken.");
             }
 
-            // Split the existing content by lines
-            var lines = existingContent.split("\n");
+            // Remove the closing bracket from the existing content
+            var updatedContent = existingContent.slice(0, -1);
 
-            // Remove any empty lines at the end
-            while (lines.length > 0 && lines[lines.length - 1].trim() === "") {
-                lines.pop();
-            }
-
-            // Get the last line
-            var lastLine = lines[lines.length - 1];
-
-            // Append a comma to the end of the last line if it is not empty
-            if (lastLine.trim() !== "") {
-                lines[lines.length - 1] += ",";
-            }
-
-            // Append new line with the updated data
-            lines.push(jsonData);
-
-            // Join the lines back together
-            var updatedContent = lines.join("\n");
+            // Append new line with the updated data and closing bracket
+            updatedContent += "," + jsonData + "]";
 
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
