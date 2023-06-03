@@ -45,13 +45,71 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 
 function writeUserData(userData) {
   var jsonData = JSON.stringify(userData);
-  var encasedData = '48Ds0---' + userData.username + ',admin=' + userData.admin + '---2b9W7';
+  var encasedData = generateEncasing(userData.username) + ',admin=' + userData.admin;
   var encryptedData = sha256(encasedData);
 
   document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
   document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
+
+function generateEncasing(username) {
+  var encasedData = '';
+
+  for (var i = 0; i < username.length; i++) {
+    var char = username[i];
+    var randomString = generateRandomString(char);
+    encasedData += randomString;
+  }
+
+  return encasedData;
+}
+
+function generateRandomString(char) {
+  var mappings = {
+    '.': 'gj',
+    '-': 'xz',
+    '0': 'kr',
+    '1': 'yt',
+    '2': 'lm',
+    '3': 'ab',
+    '4': 'nc',
+    '5': 'pw',
+    '6': 'qe',
+    '7': 'dh',
+    '8': 'sf',
+    '9': 'vi',
+    'a': 'uj',
+    'b': 're',
+    'c': 'xo',
+    'd': 'pt',
+    'e': 'kl',
+    'f': 'nh',
+    'g': 'mw',
+    'h': 'ib',
+    'i': 'cq',
+    'j': 'ya',
+    'k': 'vf',
+    'l': 'zt',
+    'm': 'gs',
+    'n': 'dx',
+    'o': 'ec',
+    'p': 'lr',
+    'q': 'on',
+    'r': 'jh',
+    's': 'uf',
+    't': 'bk',
+    'u': 'vp',
+    'v': 'ai',
+    'w': 'ym',
+    'x': 'sz',
+    'y': 'td',
+    'z': 'fx'
+  };
+
+  return mappings[char] || '';
+}
+
 
 function getLoggedInUserData() {
   var cookieData = getCookie('yeahgames_userdata');
@@ -66,7 +124,7 @@ function getLoggedInUserData() {
 }
 
 function validateCookies(cookieData, vCookieData, localStorageData) {
-  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + ',auth=100--aU3$¥';
+  var encasedData = generateEncasing(JSON.parse(localStorageData).username) + ',admin=' + JSON.parse(localStorageData).admin;
   var encryptedData = sha256(encasedData);
 
   return encryptedData === vCookieData;
@@ -82,39 +140,37 @@ function redirectToContinueURL(userData) {
   }
 }
 
-  
-  function getCookie(name) {
-    var cookies = document.cookie.split(';');
-  
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
-  
-      if (cookie.startsWith(name + '=')) {
-        return decodeURIComponent(cookie.substring(name.length + 1));
-      }
+function getCookie(name) {
+  var cookies = document.cookie.split(';');
+
+  for (var i = 0; i < cookies.length; i++) {
+    var cookie = cookies[i].trim();
+
+    if (cookie.startsWith(name + '=')) {
+      return decodeURIComponent(cookie.substring(name.length + 1));
     }
-  
-    return null;
   }
-  
-  function getParameterByName(name) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(window.location.href);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  }
-  
-  var storedUserData = getLoggedInUserData();
-  
-  if (storedUserData) {
-    // User data is valid
-    console.log('User data is valid');
-    // Do something
-  } else {
-    // User data is not found or tampered
-    console.log('User data is not found or tampered');
-    // Do something else
-  }
-  
+
+  return null;
+}
+
+function getParameterByName(name) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    results = regex.exec(window.location.href);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var storedUserData = getLoggedInUserData();
+
+if (storedUserData) {
+  // User data is valid
+  console.log('User data is valid');
+  // Do something
+} else {
+  // User data is not found or tampered
+  console.log('User data is not found or tampered');
+  // Do something else
+}
