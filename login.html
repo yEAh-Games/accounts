@@ -8,25 +8,21 @@
     <title>Log in to your account | yEAh Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
-    <link rel="stylesheet" href="/system/all/form.css">
+    <link rel="stylesheet" href="/system/all/all.css">
 
     {% include gtag.html %}
 </head>
 
 <body bgcolor="#111827">
-    <script src="https://cdn.tailwindcss.com"></script>
-
     <div class="loading-overlay">
         <div class="loader"></div>
     </div>
 
     <section class="bg-gray-50 dark:bg-gray-900">
         <br>
-
         <div class="flex flex-col items-center justify-center px-6 py-6 mx-auto md:h-screen lg:py-0">
             <br>
             <br>
-
             <div
                 class="w-full bg-white rounded-lg shadow dark:border md:mt-0 sm:max-w-md xl:p-0 dark:bg-gray-800 dark:border-gray-700">
                 <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
@@ -55,7 +51,8 @@
                             in</button>
                         <p class="text-sm font-light text-gray-500 dark:text-gray-400">
                             Don't have an account? <a style="color:#ff4747;" href="/create"
-                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create one</a>
+                                class="font-medium text-primary-600 hover:underline dark:text-primary-500">Create
+                                one</a>
                         </p>
                         <div class="loading">
                             <p style="color:white!important" id="loadingMessage">Please wait...</p>
@@ -88,66 +85,64 @@
             loaderOverlay.style.display = 'none';
         });
     </script>
-    <script src="/system/all/main.js"></script>
+    <script src="/system/all/sha256.js"></script>
     <script src="/system/login/main.js"></script>
-    
+
     <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
             <h2 class="text-xl font-bold mb-4">Logout success</h2>
             <p>You have been logged out of your network account.</p>
-            <button id="closeModal" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+            <button id="closeModal" style="background-color:#ff4747"
+                class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
         </div>
     </div>
-<!-- Add this code before the closing </body> tag -->
-
-<div id="modalLogout" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-    <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
-      <h2 class="text-xl font-bold mb-4">Logout success</h2>
-      <p>You have been logged out of your network account.</p>
-      <button id="closeModalLogout" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+    <div id="modalLogout" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Logout success</h2>
+            <p>You have been logged out of your network account.</p>
+            <button id="closeModalLogout" style="background-color:#ff4747"
+                class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+        </div>
     </div>
-  </div>
-  
-  <div id="modalCreated" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-    <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
-      <h2 class="text-xl font-bold mb-4">Account created</h2>
-      <p>Your account has been successfully created.</p><br>
-      Please allow a couple minutes for our databases <br>to update before logging in.<br>
-      <button id="closeModalCreated" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+
+    <div id="modalCreated" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Account created</h2>
+            <p>Your account has been successfully created.</p><br>
+            Please allow a couple minutes for our databases <br>to update before logging in.<br>
+            <button id="closeModalCreated" style="background-color:#ff4747"
+                class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+        </div>
     </div>
-  </div>
-  
-  <script>
-    (function() {
-      var queryString = window.location.search;
-      var urlParams = new URLSearchParams(queryString);
-      var logoutParam = urlParams.get('logout');
-      var createdParam = urlParams.get('created');
-  
-      if (logoutParam === 'true') {
-        var modalLogout = document.getElementById('modalLogout');
-        modalLogout.style.display = 'flex';
-  
-        var closeModalLogoutButton = document.getElementById('closeModalLogout');
-        closeModalLogoutButton.addEventListener('click', function() {
-          modalLogout.style.display = 'none';
-        });
-      }
-  
-      if (createdParam === 'true') {
-        var modalCreated = document.getElementById('modalCreated');
-        modalCreated.style.display = 'flex';
-  
-        var closeModalCreatedButton = document.getElementById('closeModalCreated');
-        closeModalCreatedButton.addEventListener('click', function() {
-          modalCreated.style.display = 'none';
-        });
-      }
-    })();
-  </script>
-  
 
+    <script>
+        (function () {
+            var queryString = window.location.search;
+            var urlParams = new URLSearchParams(queryString);
+            var logoutParam = urlParams.get('logout');
+            var createdParam = urlParams.get('created');
 
+            if (logoutParam === 'true') {
+                var modalLogout = document.getElementById('modalLogout');
+                modalLogout.style.display = 'flex';
+
+                var closeModalLogoutButton = document.getElementById('closeModalLogout');
+                closeModalLogoutButton.addEventListener('click', function () {
+                    modalLogout.style.display = 'none';
+                });
+            }
+
+            if (createdParam === 'true') {
+                var modalCreated = document.getElementById('modalCreated');
+                modalCreated.style.display = 'flex';
+
+                var closeModalCreatedButton = document.getElementById('closeModalCreated');
+                closeModalCreatedButton.addEventListener('click', function () {
+                    modalCreated.style.display = 'none';
+                });
+            }
+        })();
+    </script>
 </body>
 
 </html>
