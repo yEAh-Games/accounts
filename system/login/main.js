@@ -97,10 +97,10 @@ function writeUserData(userData) {
   var encryptedData = sha256(encasedData);
 
   var rememberCheckbox = document.getElementById('remember');
-  var expiration = rememberCheckbox.checked ? 'expires=365' : 'expires=0'; // 1 year or session expiration
+  var expiration = rememberCheckbox.checked ? new Date(Date.now() + (365 * 24 * 60 * 60 * 1000)).toUTCString() : '0'; // 1 year or session expiration
 
-  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/; ' + expiration;
-  document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/; ' + expiration;
+  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/; expires=' + expiration;
+  document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/; expires=' + expiration;
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
 
@@ -108,11 +108,11 @@ function redirectToContinueURL(userData) {
   var continueURL = getParameterByName('continue');
 
   if (continueURL) {
-    setTimeout(function() {
+    setTimeout(function () {
       window.location.href = continueURL;
     }, 500);
   } else {
-    setTimeout(function() {
+    setTimeout(function () {
       window.location.href = 'https://www.yeahgames.net';
     }, 500);
   }
