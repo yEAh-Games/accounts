@@ -31,8 +31,13 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
                         admin: foundUser.admin
                     };
 
-                    writeUserData(userData);
-                    redirectToContinueURL(userData);
+                    var isClientAuthenticated = authenticateClientSide(userData);
+                    if (isClientAuthenticated) {
+                        writeUserData(userData);
+                        redirectToContinueURL(userData);
+                    } else {
+                        alert('Authentication failed!');
+                    }
                 } else {
                     alert('Incorrect password!');
                 }
@@ -43,6 +48,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
             alert('An error occurred while logging in. Please try again later.');
         });
 });
+
+function authenticateClientSide(userData) {
+    var storedUserData = getLoggedInUserData();
+    if (storedUserData && storedUserData.username === userData.username && storedUserData.admin === userData.admin) {
+        return true;
+    }
+    return false;
+}
 
 function writeUserData(userData) {
     var jsonData = JSON.stringify(userData);
