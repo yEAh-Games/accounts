@@ -72,6 +72,12 @@ function getLoggedInUserData() {
         return JSON.parse(cookieData);
     }
 
+    // If cookie data doesn't exist, retrieve data from local storage
+    var localStorageData = localStorage.getItem('yeahgames_userdata');
+    if (localStorageData) {
+        return JSON.parse(localStorageData);
+    }
+
     return null;
 }
 
