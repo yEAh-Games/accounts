@@ -69,7 +69,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             lines.push(jsonData);
 
             // Join the lines back together
-            var updatedContent = lines.join(",\n");
+            var updatedContent = lines.join(",");
 
             // Wrap the content inside square brackets
             updatedContent = "[" + updatedContent + "]";
