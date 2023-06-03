@@ -52,19 +52,25 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             // Decode existing content from base64
             var existingContent = atob(existingData.content);
 
+            // Parse existing content as JSON
+            var existingAccounts = JSON.parse(existingContent);
+
             // Check if username already exists
-            if (existingContent.includes('"' + username + '"')) {
+            if (existingAccounts.some(account => account.username === username)) {
                 throw new Error("Username taken.");
             }
 
-            // Append the new data to the existing content
-            var updatedContent = existingContent.slice(0, -1) + "," + jsonData + existingContent.slice(-1);
+            // Add the new account object to the existing array
+            existingAccounts.push(data);
 
-            // Convert the updated content back to base64
-            var updatedBase64Content = btoa(updatedContent);
+            // Convert the updated accounts array back to JSON
+            var updatedContent = JSON.stringify(existingAccounts, null, 2);
 
             // Update loading message
             loadingMessage.textContent = "Sending information...";
+
+            // Convert the updated content to base64
+            var updatedBase64Content = btoa(updatedContent);
 
             // Make API request to update the file with the new content
             return fetch(existingData.url, {
