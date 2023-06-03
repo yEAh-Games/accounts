@@ -45,33 +45,31 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 
 function writeUserData(userData) {
   var jsonData = JSON.stringify(userData);
-  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + '+aU3$¥';
+  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + ',auth=100--aU3$¥';
   var encryptedData = sha256(encasedData);
-  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
 
-  var vEncasedData = 'username: ' + userData.username + ', admin: ' + userData.admin;
-  var encryptedVData = sha256(vEncasedData);
-  document.cookie = 'v=' + encodeURIComponent(encryptedVData) + '; domain=yeahgames.net; path=/';
-
+  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
+  document.cookie = 'yeahgames_v=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
 
 function getLoggedInUserData() {
   var cookieData = getCookie('yeahgames_userdata');
+  var vCookieData = getCookie('yeahgames_v');
   var localStorageData = localStorage.getItem('yeahgames_userdata');
 
-  if (cookieData && localStorageData && validateCookie(cookieData, localStorageData)) {
+  if (cookieData && vCookieData && localStorageData && validateCookies(cookieData, vCookieData, localStorageData)) {
     return JSON.parse(localStorageData);
   }
 
   return null;
 }
 
-function validateCookie(cookieData, localStorageData) {
-  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + '+aU3$¥';
+function validateCookies(cookieData, vCookieData, localStorageData) {
+  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + ',auth=100--aU3$¥';
   var encryptedData = sha256(encasedData);
 
-  return encryptedData === cookieData;
+  return encryptedData === vCookieData;
 }
 
 function redirectToContinueURL(userData) {
@@ -83,6 +81,7 @@ function redirectToContinueURL(userData) {
     window.location.href = 'https://www.yeahgames.net';
   }
 }
+
   
   function getCookie(name) {
     var cookies = document.cookie.split(';');
