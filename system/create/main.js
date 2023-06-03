@@ -54,7 +54,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
 
             // Check if username already exists
             if (existingContent.includes('"' + username + '"')) {
-                throw new Error("Username taken.");
+                return; // Skip adding the account
             }
 
             // Split the existing content by lines
@@ -65,14 +65,21 @@ document.getElementById("createAccountForm").addEventListener("submit", function
                 lines.pop();
             }
 
+            // Declare an array to store existing accounts
+            var existingContentArray = [];
+
             // Append new line with the updated data
-            lines.push(jsonData);
+            // Check if there are existing lines
+            if (lines.length > 0) {
+                // Add a comma after the last object
+                lines[lines.length - 1] += ",";
+                existingContentArray.push(jsonData);
+            } else {
+                existingContentArray.push(jsonData);
+            }
 
             // Join the lines back together
-            var updatedContent = lines.join(",");
-
-            // Wrap the content inside square brackets
-            updatedContent = "[" + updatedContent + "]";
+            var updatedContent = lines.join("\n");
 
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
