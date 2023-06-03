@@ -73,5 +73,10 @@
     "username": "test544589459845",
     "password": "43aef1e1197147392757421dda27b5ec9646e6a406492f06a3bc041463489310",
     "admin": false
+  },
+  {
+    "username": "test0987654",
+    "password": "c52edd8489ee3768a91f01826bed84e5bda13b0b713e576f2a286cd237d035a5",
+    "admin": false
   }
 ]
