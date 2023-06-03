@@ -47,15 +47,18 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
   function writeUserData(userData) {
     var jsonData = JSON.stringify(userData);
   
-    // Store user data in cookie and local storage
+    // Store user data in cookie
     document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
+  
+    // Store user data in local storage
     localStorage.setItem('yeahgames_userdata', jsonData);
   }
   
   function getLoggedInUserData() {
     var cookieData = getCookie('yeahgames_userdata');
+    var localStorageData = localStorage.getItem('yeahgames_userdata');
   
-    if (cookieData) {
+    if (cookieData && localStorageData && cookieData === decodeURIComponent(localStorageData)) {
       return JSON.parse(cookieData);
     }
   
@@ -72,7 +75,6 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     }
   }
   
-  // Get cookie value by name
   function getCookie(name) {
     var cookies = document.cookie.split(';');
   
@@ -87,7 +89,6 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     return null;
   }
   
-  // Get URL parameter value by name
   function getParameterByName(name) {
     name = name.replace(/[\[\]]/g, '\\$&');
     var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
@@ -97,12 +98,10 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     return decodeURIComponent(results[2].replace(/\+/g, ' '));
   }
   
-  // Retrieve and verify user data from both cookies and local storage
   var storedUserData = getLoggedInUserData();
-  var localStorageData = localStorage.getItem('yeahgames_userdata');
   
-  if (storedUserData && localStorageData && storedUserData === JSON.parse(localStorageData)) {
-    // User data is valid and not tampered
+  if (storedUserData) {
+    // User data is valid
     console.log('User data is valid');
     // Do something
   } else {
