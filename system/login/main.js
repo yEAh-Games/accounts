@@ -1,14 +1,8 @@
 document.getElementById('loginForm').addEventListener('submit', function (event) {
-  event.preventDefault(); // Prevent form submission
+  event.preventDefault();
 
   var username = document.getElementById('username').value;
   var password = document.getElementById('password').value;
-
-  var userData = getLoggedInUserData();
-  if (userData) {
-    redirectToContinueURL(userData);
-    return;
-  }
 
   fetch('/data/accounts.json')
     .then(function (response) {
@@ -39,7 +33,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
     })
     .catch(function (error) {
       console.error('Error:', error);
-      alert('An error occurred while logging in. Please try again later.');
+      alert('An unknown error occurred while logging in. Please try again later.');
     });
 });
 
@@ -107,26 +101,6 @@ function writeUserData(userData) {
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
 
-
-function getLoggedInUserData() {
-  var cookieData = getCookie('yeahgames_userdata');
-  var vCookieData = getCookie('yeahgames_v');
-  var localStorageData = localStorage.getItem('yeahgames_userdata');
-
-  if (cookieData && vCookieData && localStorageData && validateCookies(cookieData, vCookieData, localStorageData)) {
-    return JSON.parse(localStorageData);
-  }
-
-  return null;
-}
-
-function validateCookies(cookieData, vCookieData, localStorageData) {
-  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + ',auth=100--aU3$¥';
-  var encryptedData = sha256(encasedData);
-
-  return encryptedData === vCookieData;
-}
-
 function redirectToContinueURL(userData) {
   var continueURL = getParameterByName('continue');
 
@@ -137,39 +111,19 @@ function redirectToContinueURL(userData) {
   }
 }
 
-  
-  function getCookie(name) {
-    var cookies = document.cookie.split(';');
-  
-    for (var i = 0; i < cookies.length; i++) {
-      var cookie = cookies[i].trim();
-  
-      if (cookie.startsWith(name + '=')) {
-        return decodeURIComponent(cookie.substring(name.length + 1));
-      }
-    }
-  
-    return null;
-  }
-  
-  function getParameterByName(name) {
-    name = name.replace(/[\[\]]/g, '\\$&');
-    var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
-      results = regex.exec(window.location.href);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
-  }
-  
-  var storedUserData = getLoggedInUserData();
-  
-  if (storedUserData) {
-    // User data is valid
-    console.log('User data is valid');
-    // Do something
-  } else {
-    // User data is not found or tampered
-    console.log('User data is not found or tampered');
-    // Do something else
-  }
-  
+function getParameterByName(name) {
+  name = name.replace(/[\[\]]/g, '\\$&');
+  var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+    results = regex.exec(window.location.href);
+  if (!results) return null;
+  if (!results[2]) return '';
+  return decodeURIComponent(results[2].replace(/\+/g, ' '));
+}
+
+var storedUserData = getLoggedInUserData();
+
+if (storedUserData) {
+  console.log('User data is valid');
+} else {
+  console.log('Error fetching localStorage userdata. Using cookies instead.');
+}
