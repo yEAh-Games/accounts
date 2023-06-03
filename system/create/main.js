@@ -57,15 +57,8 @@ document.getElementById("createAccountForm").addEventListener("submit", function
                 throw new Error("Username taken.");
             }
 
-            // Remove the closing bracket from the existing content
-            var updatedContent = existingContent.slice(0, -1);
-
-            // Append new line with the updated data and closing bracket
-            if (updatedContent === "") {
-                updatedContent += jsonData + "]";
-            } else {
-                updatedContent += "," + jsonData + "]";
-            }
+            // Append the new data to the existing content
+            var updatedContent = existingContent.slice(0, -1) + "," + jsonData + "]";
 
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
