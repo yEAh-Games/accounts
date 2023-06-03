@@ -45,9 +45,14 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 
 function writeUserData(userData) {
   var jsonData = JSON.stringify(userData);
-  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + ',auth=100--aU3$¥';
+  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + '+aU3$¥';
   var encryptedData = sha256(encasedData);
   document.cookie = 'yeahgames_userdata=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
+
+  var vEncasedData = 'username: ' + userData.username + ', admin: ' + userData.admin;
+  var encryptedVData = sha256(vEncasedData);
+  document.cookie = 'v=' + encodeURIComponent(encryptedVData) + '; domain=yeahgames.net; path=/';
+
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
 
@@ -63,7 +68,7 @@ function getLoggedInUserData() {
 }
 
 function validateCookie(cookieData, localStorageData) {
-  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + ',auth=100--aU3$¥';
+  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + '+aU3$¥';
   var encryptedData = sha256(encasedData);
 
   return encryptedData === cookieData;
