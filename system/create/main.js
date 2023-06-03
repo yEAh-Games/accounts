@@ -165,7 +165,7 @@ function getIPAddress() {
         if (error.message === "Username taken.") {
           alert("Username is already taken. Please choose a different username.");
         } else if (error.message === "You have reached the rate limit. Please try again later.") {
-          alert("You have reached the yEAh API account creation rate limit. Please try again in three (3) days from the last time you created an account. To remove or exempt yourself from this limit, email us at api@yeahgames.net");
+          alert("You have reached the yEAh API account creation rate limit. Please try again in three (3) days from the last time you successfully created an account. To remove or exempt yourself from this limit, email us at api@yeahgames.net.");
         } else {
           alert("An unknown error occurred. Please try again later.");
         }
