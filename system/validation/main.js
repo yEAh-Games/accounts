@@ -45,7 +45,7 @@ function validateUserDataFromCookie() {
   
     if (!cookieData || !vCookieData) {
       console.log('User data is not found or incomplete');
-      redirectToLogin(true);
+      redirectToLogin(true); 
       return null;
     }
   
@@ -79,8 +79,8 @@ function validateUserDataFromCookie() {
       };
     } else {
       console.log('User data is tampered or invalid');
-      redirectToLogin(true);
-      return null;
+      redirectToLogin(true); 
+      return null; 
     }
   }
   
@@ -107,13 +107,4 @@ function validateUserDataFromCookie() {
   
     window.location.href = url;
   }
-  
-  function fetchScript(url, callback) {
-    var script = document.createElement('script');
-    script.src = url;
-    script.onload = callback;
-    document.head.appendChild(script);
-  }
-  
-  fetchScript('https://accounts.yeahgames.net/system/all/sha256.js', validateUserDataFromCookie);
   
