@@ -104,14 +104,17 @@ function writeUserData(userData) {
   localStorage.setItem('yeahgames_userdata', jsonData);
 }
 
-
 function redirectToContinueURL(userData) {
   var continueURL = getParameterByName('continue');
 
   if (continueURL) {
-    window.location.href = continueURL;
+    setTimeout(function() {
+      window.location.href = continueURL;
+    }, 500);
   } else {
-    window.location.href = 'https://www.yeahgames.net';
+    setTimeout(function() {
+      window.location.href = 'https://www.yeahgames.net';
+    }, 500);
   }
 }
 
