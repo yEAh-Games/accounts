@@ -65,30 +65,16 @@ document.getElementById("createAccountForm").addEventListener("submit", function
                 lines.pop();
             }
 
-            // Append new line with the updated data
-            // Check if there are existing lines
-            if (lines.length > 0) {
-                // Add a comma after the last object
+            // Get the last line
+            var lastLine = lines[lines.length - 1];
+
+            // Append a comma to the end of the last line if it is not empty
+            if (lastLine.trim() !== "") {
                 lines[lines.length - 1] += ",";
             }
 
             // Append new line with the updated data
             lines.push(jsonData);
-
-            // Join the lines back together
-            var updatedContent = lines.join("\n");
-
-            // Add closing square bracket if there are existing lines
-            if (lines.length > 0) {
-                updatedContent += ",";
-            }
-
-            // Append closing square bracket
-            updatedContent += "]";
-
-            // Convert the updated content back to base64
-            var updatedBase64Content = btoa(updatedContent);
-
 
             // Join the lines back together
             var updatedContent = lines.join("\n");
