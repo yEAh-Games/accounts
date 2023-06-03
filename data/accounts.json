@@ -10,78 +10,8 @@
     "admin": true
   },
   {
-    "username": "test123",
-    "password": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae",
-    "admin": false
-  },
-  {
-    "username": "test1234",
-    "password": "5ec3948658f375f293873ebc643f3253bcf53e76096d769ecafb79aa03d602dd",
-    "admin": false
-  },
-  {
-    "username": "protestballs",
-    "password": "4c9885acc9dd68754e3b0007e0907789e9582bd3e035359bc9ff9065cbdaa2ca",
-    "admin": false
-  },
-  {
-    "username": "protestballs2",
-    "password": "5f2226b67b32453dc44d308866765ece6ba2b0c2c423a0fd47a70d8c752ea62a",
-    "admin": false
-  },
-  {
-    "username": "grfedwq",
-    "password": "7f710fbe9ea40fb7893799e679ec567a760b7fb0cc839c57979b4e95b436db1c",
-    "admin": false
-  },
-  {
-    "username": "gtrews",
-    "password": "0e6e9cdfcbc859f1e94733de78407e962f7b1941a4919c2d0f607417e11ddbba",
-    "admin": false
-  },
-  {
     "username": "undone",
     "password": "106fd215679a6903bd668f6cb5e9f50246a50beab19b8b34d0a7ba117bb520df",
     "admin": true
-  },
-  {
-    "username": "jhygtrfew",
-    "password": "a8f5941e7e8e6eaffed5c9b4e635cfce5b2baae4fd15376b6ea03bb3242703db",
-    "admin": false
-  },
-  {
-    "username": "hgtfredw",
-    "password": "4b2bf72e0b87d97ee33be31d28f2762044428884075db45c92993fb324b6b5eb",
-    "admin": false
-  },
-  {
-    "username": "htgrewq",
-    "password": "c6d10930246b11de6c94111b0514b12365de7353941ecdfc25580cf54903a83d",
-    "admin": false
-  },
-  {
-    "username": "amongusprotesting",
-    "password": "7eaf157539e36bd6ec827920a5449e29f621ff086e53714468995e0508726691",
-    "admin": false
-  },
-  {
-    "username": "test5444443",
-    "password": "b4f7174d47d827cd98f043c47042dcc1cd129ad757c9d37fce2b78057c2fe9fa",
-    "admin": false
-  },
-  {
-    "username": "test544589459845",
-    "password": "43aef1e1197147392757421dda27b5ec9646e6a406492f06a3bc041463489310",
-    "admin": false
-  },
-  {
-    "username": "test0987654",
-    "password": "c52edd8489ee3768a91f01826bed84e5bda13b0b713e576f2a286cd237d035a5",
-    "admin": false
-  },
-  {
-    "username": "t3e55555555",
-    "password": "9beffcead23736a3f7faaabab75103012604ffc4d5de176a31e02f8ff1899518",
-    "admin": false
   }
 ]
