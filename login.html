@@ -1,6 +1,5 @@
 ---
 ---
-
 <!DOCTYPE html>
 <html>
 
@@ -88,14 +87,7 @@
     <script src="/system/all/sha256.js"></script>
     <script src="/system/login/main.js"></script>
 
-    <div id="modal" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
-        <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
-            <h2 class="text-xl font-bold mb-4">Logout success</h2>
-            <p>You have been logged out of your network account.</p>
-            <button id="closeModal" style="background-color:#ff4747"
-                class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
-        </div>
-    </div>
+
     <div id="modalLogout" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
         <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
             <h2 class="text-xl font-bold mb-4">Logout success</h2>
@@ -115,12 +107,23 @@
         </div>
     </div>
 
+    <div id="modalCorrupted" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+        <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
+            <h2 class="text-xl font-bold mb-4">Login corrupted</h2>
+            <p>Your login cookie has been locally corrupted.</p>
+            This isn't a security risk and is usually in error. <br><br>Please log in again to revalidate it. <br><em>If this happens repeatedly, <a style="color:#ff4747" href="mailto:accounts@yeahgames.net">contact us</a>.</em><br>
+            <button id="closeModalCorrupted" style="background-color:#ff4747"
+                class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+        </div>
+    </div>
+
     <script>
         (function () {
             var queryString = window.location.search;
             var urlParams = new URLSearchParams(queryString);
             var logoutParam = urlParams.get('logout');
             var createdParam = urlParams.get('created');
+            var corruptedParam = urlParams.get('corrupted');
 
             if (logoutParam === 'true') {
                 var modalLogout = document.getElementById('modalLogout');
@@ -141,8 +144,19 @@
                     modalCreated.style.display = 'none';
                 });
             }
+
+            if (corruptedParam === 'true') {
+                var modalCorrupted = document.getElementById('modalCorrupted');
+                modalCorrupted.style.display = 'flex';
+
+                var closeModalCorruptedButton = document.getElementById('closeModalCorrupted');
+                closeModalCorruptedButton.addEventListener('click', function () {
+                    modalCorrupted.style.display = 'none';
+                });
+            }
         })();
     </script>
+
 </body>
 
 </html>

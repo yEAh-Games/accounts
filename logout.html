@@ -1,5 +1,6 @@
 ---
 ---
+<!DOCTYPE html>
 <html>
 <head>
     <title>Log out of your account | yEAh Accounts</title>
@@ -15,7 +16,14 @@
         deleteCookie("yeahgames_userdata");
         deleteCookie("yeahgames_v");
 
-        window.location.href = "https://accounts.yeahgames.net/login?logout=true";
+        const urlParams = new URLSearchParams(window.location.search);
+        const continueUrl = urlParams.get('continue');
+
+        if (continueUrl) {
+            window.location.href = continueUrl;
+        } else {
+            window.location.href = "https://accounts.yeahgames.net/login?logout=true";
+        }
     </script>
     <div class="loading-overlay">
         <div class="loader"></div>
