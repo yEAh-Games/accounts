@@ -78,6 +78,21 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             // Join the lines back together
             var updatedContent = lines.join("\n");
 
+            // Add closing square bracket if there are existing lines
+            if (lines.length > 0) {
+                updatedContent += ",";
+            }
+
+            // Append closing square bracket
+            updatedContent += "]";
+
+            // Convert the updated content back to base64
+            var updatedBase64Content = btoa(updatedContent);
+
+
+            // Join the lines back together
+            var updatedContent = lines.join("\n");
+
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
 
