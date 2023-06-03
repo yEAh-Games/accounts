@@ -45,7 +45,7 @@ document.getElementById('loginForm').addEventListener('submit', function (event)
 
 function writeUserData(userData) {
   var jsonData = JSON.stringify(userData);
-  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + ',auth=100--aU3$¥';
+  var encasedData = '48Ds0---' + userData.username + ',admin=' + userData.admin + '---2b9W7';
   var encryptedData = sha256(encasedData);
 
   document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
