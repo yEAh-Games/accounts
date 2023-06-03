@@ -98,24 +98,55 @@
             <button id="closeModal" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
         </div>
     </div>
+<!-- Add this code before the closing </body> tag -->
 
-    <script>
-        (function () {
-            var queryString = window.location.search;
-            var urlParams = new URLSearchParams(queryString);
-            var logoutParam = urlParams.get('logout');
+<div id="modalLogout" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+    <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Logout success</h2>
+      <p>You have been logged out of your network account.</p>
+      <button id="closeModalLogout" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+    </div>
+  </div>
+  
+  <div id="modalCreated" class="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50 hidden">
+    <div class="dark:bg-gray-800 dark:border-gray-700 dark:text-white rounded-lg p-6">
+      <h2 class="text-xl font-bold mb-4">Account created</h2>
+      <p>Your account has been successfully created.</p><br>
+      Please allow a couple minutes for our databases <br>to update before logging in.<br>
+      <button id="closeModalCreated" style="background-color:#ff4747" class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
+    </div>
+  </div>
+  
+  <script>
+    (function() {
+      var queryString = window.location.search;
+      var urlParams = new URLSearchParams(queryString);
+      var logoutParam = urlParams.get('logout');
+      var createdParam = urlParams.get('created');
+  
+      if (logoutParam === 'true') {
+        var modalLogout = document.getElementById('modalLogout');
+        modalLogout.style.display = 'flex';
+  
+        var closeModalLogoutButton = document.getElementById('closeModalLogout');
+        closeModalLogoutButton.addEventListener('click', function() {
+          modalLogout.style.display = 'none';
+        });
+      }
+  
+      if (createdParam === 'true') {
+        var modalCreated = document.getElementById('modalCreated');
+        modalCreated.style.display = 'flex';
+  
+        var closeModalCreatedButton = document.getElementById('closeModalCreated');
+        closeModalCreatedButton.addEventListener('click', function() {
+          modalCreated.style.display = 'none';
+        });
+      }
+    })();
+  </script>
+  
 
-            if (logoutParam === 'true') {
-                var modal = document.getElementById('modal');
-                modal.style.display = 'flex';
-
-                var closeModalButton = document.getElementById('closeModal');
-                closeModalButton.addEventListener('click', function () {
-                    modal.style.display = 'none';
-                });
-            }
-        })();
-    </script>
 
 </body>
 

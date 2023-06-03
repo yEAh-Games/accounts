@@ -49,30 +49,21 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             }
         })
         .then(function (existingData) {
-            // Decode existing content from base64
             var existingContent = atob(existingData.content);
-
-            // Parse existing content as JSON
             var existingAccounts = JSON.parse(existingContent);
 
-            // Check if username already exists
             if (existingAccounts.some(account => account.username === username)) {
                 throw new Error("Username taken.");
             }
 
-            // Add the new account object to the existing array
             existingAccounts.push(data);
 
-            // Convert the updated accounts array back to JSON
             var updatedContent = JSON.stringify(existingAccounts, null, 2);
 
-            // Update loading message
             loadingMessage.textContent = "Sending information...";
 
-            // Convert the updated content to base64
             var updatedBase64Content = btoa(updatedContent);
 
-            // Make API request to update the file with the new content
             return fetch(existingData.url, {
                 method: "PUT",
                 headers: {
@@ -87,21 +78,18 @@ document.getElementById("createAccountForm").addEventListener("submit", function
         })
         .then(function (response) {
             if (response.ok) {
-                // Update loading message
                 loadingMessage.textContent = "Writing to database...";
 
                 return new Promise(function (resolve) {
-                    setTimeout(resolve, 1500); // Simulating a delay for writing to the database
+                    setTimeout(resolve, 1500);
                 });
             } else {
-                throw new Error("Failed to update file.");
+                throw new Error("Failed to update database.");
             }
         })
         .then(function () {
-            // Account creation successful
-            alert("Account created successfully!");
-            // Reset form after successful submission
-            form.reset();
+            // Redirect to login page with created=true query parameter
+            window.location.href = "/login?created=true";
         })
         .catch(function (error) {
             console.error("Error:", error);
@@ -112,11 +100,9 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             }
         })
         .finally(function () {
-            // Re-enable the form after processing
             form.style.opacity = 1;
             form.style.pointerEvents = "auto";
 
-            // Hide the loading animation
             loading.style.display = "none";
         });
 });
