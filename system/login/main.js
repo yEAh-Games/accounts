@@ -1,79 +1,83 @@
 document.getElementById('loginForm').addEventListener('submit', function (event) {
-    event.preventDefault(); // Prevent form submission
-  
-    var username = document.getElementById('username').value;
-    var password = document.getElementById('password').value;
-  
-    // Check if user is already logged in
-    var userData = getLoggedInUserData();
-    if (userData) {
-      redirectToContinueURL(userData);
-      return;
-    }
-  
-    fetch('/data/accounts.json')
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        var foundUser = data.find(function (user) {
-          return user.username === username;
-        });
-  
-        if (!foundUser) {
-          alert('Account does not exist! Create it at https://accounts.yeahgames.net/create, or by clicking the link below the log-in button.');
-        } else {
-          var encryptedPassword = sha256(password);
-  
-          if (foundUser.password === encryptedPassword) {
-            var userData = {
-              username: foundUser.username,
-              admin: foundUser.admin
-            };
-  
-            writeUserData(userData);
-            redirectToContinueURL(userData);
-          } else {
-            alert('Incorrect password!');
-          }
-        }
-      })
-      .catch(function (error) {
-        console.error('Error:', error);
-        alert('An error occurred while logging in. Please try again later.');
+  event.preventDefault(); // Prevent form submission
+
+  var username = document.getElementById('username').value;
+  var password = document.getElementById('password').value;
+
+  var userData = getLoggedInUserData();
+  if (userData) {
+    redirectToContinueURL(userData);
+    return;
+  }
+
+  fetch('/data/accounts.json')
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      var foundUser = data.find(function (user) {
+        return user.username === username;
       });
-  });
-  
-  function writeUserData(userData) {
-    var jsonData = JSON.stringify(userData);
-  
-    // Store user data in cookie
-    document.cookie = 'yeahgames_userdata=' + encodeURIComponent(jsonData) + '; domain=yeahgames.net; path=/';
-  
-    // Store user data in local storage
-    localStorage.setItem('yeahgames_userdata', jsonData);
+
+      if (!foundUser) {
+        alert('Account does not exist! Create it at https://accounts.yeahgames.net/create, or by clicking the link below the log-in button.');
+      } else {
+        var encryptedPassword = sha256(password);
+
+        if (foundUser.password === encryptedPassword) {
+          var userData = {
+            username: foundUser.username,
+            admin: foundUser.admin
+          };
+
+          writeUserData(userData);
+          redirectToContinueURL(userData);
+        } else {
+          alert('Incorrect password!');
+        }
+      }
+    })
+    .catch(function (error) {
+      console.error('Error:', error);
+      alert('An error occurred while logging in. Please try again later.');
+    });
+});
+
+function writeUserData(userData) {
+  var jsonData = JSON.stringify(userData);
+  var encasedData = '4@Ds#---' + userData.username + ',admin=' + userData.admin + ',auth=100--aU3$¥';
+  var encryptedData = sha256(encasedData);
+  document.cookie = 'yeahgames_userdata=' + encodeURIComponent(encryptedData) + '; domain=yeahgames.net; path=/';
+  localStorage.setItem('yeahgames_userdata', jsonData);
+}
+
+function getLoggedInUserData() {
+  var cookieData = getCookie('yeahgames_userdata');
+  var localStorageData = localStorage.getItem('yeahgames_userdata');
+
+  if (cookieData && localStorageData && validateCookie(cookieData, localStorageData)) {
+    return JSON.parse(localStorageData);
   }
-  
-  function getLoggedInUserData() {
-    var cookieData = getCookie('yeahgames_userdata');
-    var localStorageData = localStorage.getItem('yeahgames_userdata');
-  
-    if (cookieData && localStorageData && cookieData === decodeURIComponent(localStorageData)) {
-      return JSON.parse(cookieData);
-    }
-  
-    return null;
+
+  return null;
+}
+
+function validateCookie(cookieData, localStorageData) {
+  var encasedData = '4@Ds#---' + JSON.parse(localStorageData).username + ',admin=' + JSON.parse(localStorageData).admin + ',auth=100--aU3$¥';
+  var encryptedData = sha256(encasedData);
+
+  return encryptedData === cookieData;
+}
+
+function redirectToContinueURL(userData) {
+  var continueURL = getParameterByName('continue');
+
+  if (continueURL) {
+    window.location.href = continueURL;
+  } else {
+    window.location.href = 'https://www.yeahgames.net';
   }
-  
-  function redirectToContinueURL(userData) {
-    var continueURL = getParameterByName('continue');
-  
-    if (continueURL) {
-      window.location.href = continueURL;
-    } else {
-      window.location.href = 'https://www.yeahgames.net';
-    }
-  }
+}
   
   function getCookie(name) {
     var cookies = document.cookie.split(';');
