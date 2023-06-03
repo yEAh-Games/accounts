@@ -58,7 +58,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
             }
 
             // Append the new data to the existing content
-            var updatedContent = existingContent.slice(0, -1) + "," + jsonData + "]";
+            var updatedContent = existingContent.slice(0, -1) + "," + jsonData + existingContent.slice(-1);
 
             // Convert the updated content back to base64
             var updatedBase64Content = btoa(updatedContent);
