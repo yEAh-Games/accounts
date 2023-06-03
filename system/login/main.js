@@ -54,9 +54,8 @@ function writeUserData(userData) {
 
 function getLoggedInUserData() {
     var cookieData = getCookie('yeahgames_userdata');
-    var localStorageData = localStorage.getItem('yeahgames_userdata');
 
-    if (cookieData && localStorageData && cookieData === localStorageData) {
+    if (cookieData) {
         return JSON.parse(cookieData);
     }
 
@@ -67,13 +66,9 @@ function redirectToContinueURL(userData) {
     var continueURL = getParameterByName('continue');
 
     if (continueURL) {
-        setTimeout(function () {
-            window.location.href = continueURL;
-        }, 2000);
+        window.location.href = continueURL;
     } else {
-        setTimeout(function () {
-            window.location.href = 'https://www.yeahgames.net';
-        }, 2000);
+        window.location.href = 'https://www.yeahgames.net';
     }
 }
 
