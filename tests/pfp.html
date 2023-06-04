@@ -97,77 +97,75 @@
   <div id="loadingContainer"></div>
   <div id="loginContainer"></div>
   <div id="profileContainer"></div>
+  <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
+  <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      var loadingContainer = document.getElementById('loadingContainer');
-      var loginContainer = document.getElementById('loginContainer');
-      var profileContainer = document.getElementById('profileContainer');
+  var userData = validateUserDataFromCookie();
+  var loadingContainer = document.getElementById('loadingContainer');
+  var loginContainer = document.getElementById('loginContainer');
+  var profileContainer = document.getElementById('profileContainer');
 
-      var currentUrl = window.location.href;
-      var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
+  var currentUrl = window.location.href;
+  var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
 
-      var userData = validateUserDataFromCookie();
-      if (userData) {
-        var profilePicture = document.createElement('img');
-        profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/@' + userData.username + '.png';
-        profilePicture.alt = 'Profile Picture';
-        profilePicture.classList.add('rounded-full', 'profile-picture', 'float-right');
-        profilePicture.addEventListener('click', function (event) {
-          event.preventDefault();
-          var dropdownMenu = document.getElementById('dropdownMenu');
-          dropdownMenu.classList.toggle('show');
-        });
-
-        var dropdownContainer = document.createElement('div');
-        dropdownContainer.classList.add('profile-container');
-
-        var dropdownMenu = document.createElement('div');
-        dropdownMenu.id = 'dropdownMenu';
-        dropdownMenu.classList.add('dropdown-menu');
-
-        var dropdownItems = [
-          { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
-          { text: 'Settings', link: 'https://settings.yeahgames.net' },
-          { text: 'Logout', link: 'https://accounts.yeahgames.net/logout?continue=' + encodeURIComponent(currentUrl) }
-        ];
-
-        dropdownItems.forEach(function (item) {
-          var dropdownItem = document.createElement('a');
-          dropdownItem.href = item.link;
-          dropdownItem.classList.add('dropdown-item');
-          dropdownItem.innerHTML = item.text;
-          dropdownMenu.appendChild(dropdownItem);
-        });
-
-        dropdownContainer.appendChild(profilePicture);
-        dropdownContainer.appendChild(dropdownMenu);
-        profileContainer.appendChild(dropdownContainer);
-
-        loadingContainer.style.display = 'none';
-      } else {
-        var loginButton = document.createElement('a');
-        loginButton.href = loginUrl;
-        loginButton.id = 'loginButton';
-        loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
-        loginButton.innerHTML = 'Login';
-
-        loginContainer.appendChild(loginButton);
-
-        loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
-
-        window.addEventListener('load', function () {
-          var sha256Script = document.createElement('script');
-          sha256Script.src = 'https://accounts.yeahgames.net/system/all/sha256.js';
-          document.head.appendChild(sha256Script);
-
-          var mainScript = document.createElement('script');
-          mainScript.src = 'https://accounts.yeahgames.net/system/validation/main.js';
-          document.head.appendChild(mainScript);
-
-          loadingContainer.style.display = 'flex';
-        });
-      }
+  if (userData) {
+    // User is logged in
+    var profilePicture = document.createElement('img');
+    profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/@' + userData.username + '.png';
+    profilePicture.alt = 'Profile Picture';
+    profilePicture.classList.add('rounded-full', 'profile-picture', 'float-right');
+    profilePicture.addEventListener('click', function (event) {
+      event.preventDefault();
+      var dropdownMenu = document.getElementById('dropdownMenu');
+      dropdownMenu.classList.toggle('show');
     });
+
+    var dropdownContainer = document.createElement('div');
+    dropdownContainer.classList.add('profile-container');
+
+    var dropdownMenu = document.createElement('div');
+    dropdownMenu.id = 'dropdownMenu';
+    dropdownMenu.classList.add('dropdown-menu');
+
+    var dropdownItems = [
+      { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
+      { text: 'Settings', link: 'https://settings.yeahgames.net' },
+      { text: 'Logout', link: 'https://accounts.yeahgames.net/logout?continue=' + encodeURIComponent(currentUrl) }
+    ];
+
+    dropdownItems.forEach(function (item) {
+      var dropdownItem = document.createElement('a');
+      dropdownItem.href = item.link;
+      dropdownItem.classList.add('dropdown-item');
+      dropdownItem.innerHTML = item.text;
+      dropdownMenu.appendChild(dropdownItem);
+    });
+
+    dropdownContainer.appendChild(profilePicture);
+    dropdownContainer.appendChild(dropdownMenu);
+    profileContainer.appendChild(dropdownContainer);
+
+    loadingContainer.style.display = 'none';
+  } else {
+    var loginButton = document.createElement('a');
+    loginButton.href = loginUrl;
+    loginButton.id = 'loginButton';
+    loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
+    loginButton.innerHTML = 'Login';
+
+    loginContainer.appendChild(loginButton);
+
+    // Show loading icon when validation starts
+    loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
+
+    // Hide loading icon when validation completes
+    setTimeout(function () {
+      loadingContainer.style.display = 'none';
+    }, 2000); // Adjust the duration based on your validation process
+  }
+});
+
   </script>
 </body>
 
