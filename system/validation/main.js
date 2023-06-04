@@ -99,11 +99,15 @@ function getCookie(name) {
 }
 
 function redirectToLogin(corrupted) {
+    var cookieData = getCookie('yeahgames_userdata');
+    var vCookieData = getCookie('yeahgames_v');
+  
     var url = 'https://accounts.yeahgames.net/logout?continue=https%3A%2F%2Faccounts.yeahgames.net%2Flogin';
-
-    if (corrupted) {
-        url += '%3Fcorrupted%3Dtrue';
+  
+    if (corrupted || (!cookieData && !vCookieData)) {
+      url += '%3Fcorrupted%3Dtrue';
     }
-
+  
     window.location.href = url;
-}
+  }
+  
