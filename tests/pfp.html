@@ -9,7 +9,13 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background-color: rgba(0, 0, 0, 0.5);
+      z-index: 9999;
     }
 
     .loading-spinner {
@@ -30,13 +36,19 @@
         transform: rotate(360deg);
       }
     }
+
+    .dropdown-menu {
+      display: none;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
   </style>
 </head>
 
 <body>
-  <div id="loadingContainer" class="loading-container">
-    <div class="loading-spinner"></div>
-  </div>
+  <div id="loadingContainer"></div>
   <div id="loginContainer"></div>
   <div id="profileContainer"></div>
   <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
@@ -78,6 +90,7 @@
         dropdownButton.style.backgroundColor = 'transparent';
 
         var dropdownMenu = document.createElement('div');
+        dropdownMenu.classList.add('dropdown-menu');
         dropdownMenu.classList.add('absolute');
         dropdownMenu.classList.add('right-0');
         dropdownMenu.classList.add('w-48');
@@ -90,7 +103,6 @@
         dropdownMenu.classList.add('ring-black');
         dropdownMenu.classList.add('ring-opacity-5');
         dropdownMenu.classList.add('focus:outline-none');
-        dropdownMenu.style.display = 'none';
 
         var dropdownItems = [
           { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
@@ -114,11 +126,7 @@
         });
 
         dropdownButton.addEventListener('click', function () {
-          if (dropdownMenu.style.display === 'none') {
-            dropdownMenu.style.display = 'block';
-          } else {
-            dropdownMenu.style.display = 'none';
-          }
+          dropdownMenu.classList.toggle('show');
         });
 
         profileContainer.appendChild(profilePicture);
@@ -142,7 +150,7 @@
 
         loginContainer.appendChild(loginButton);
 
-        loadingContainer.style.display = 'none';
+        loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
       }
     });
   </script>
