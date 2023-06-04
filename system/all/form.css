@@ -1,4 +1,4 @@
-body{overflow:hidden!important;background-color: #111827;}
+body{overflow:hidden!important;background-color: #0c0e14;}
 
 .loading {
     display: none;
@@ -13,7 +13,7 @@ body{overflow:hidden!important;background-color: #111827;}
     left: 0;
     right: 0;
     bottom: 0;
-    background-color: #111827;
+    background-color: #0c0e14;
     display: flex;
     justify-content: center;
     align-items: center;
