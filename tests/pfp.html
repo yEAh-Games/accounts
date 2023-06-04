@@ -5,92 +5,6 @@
   <title>login test</title>
 
   <link rel="stylesheet" href="output.css">
-  <style>
-    .loading-container {
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      position: absolute;
-      top: 0;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background-color: rgba(0, 0, 0, 0.5);
-      z-index: 9999;
-    }
-
-    .loading-spinner {
-      border: 8px solid #f3f3f3;
-      border-top: 8px solid #3498db;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      animation: spin 1.5s linear infinite;
-    }
-
-    @keyframes spin {
-      0% {
-        transform: rotate(0deg);
-      }
-
-      100% {
-        transform: rotate(360deg);
-      }
-    }
-
-    .dropdown-menu {
-      display: none;
-    }
-
-    .dropdown-menu.show {
-      display: block;
-    }
-
-    .rounded-full {
-      border-radius: 50%;
-    }
-
-    .profile-container {
-      position: relative;
-    }
-
-    .profile-picture {
-      width: 40px;
-      height: 40px;
-      border: 2px solid #CBD5E0;
-      cursor: pointer;
-    }
-
-    .dropdown-menu {
-      position: absolute;
-      top: calc(100% + 4px);
-      right: 0;
-      min-width: 120px;
-      background-color: #1f2937;
-      color: #ffffff;
-      border-radius: 4px;
-      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-      z-index: 10;
-      display: none;
-    }
-
-    .dropdown-menu.show {
-      display: block;
-    }
-
-    .dropdown-item {
-      display: block;
-      padding: 8px 12px;
-      font-size: 14px;
-      color: #4a5568;
-      cursor: pointer;
-      transition: background-color 0.2s;
-    }
-
-    .dropdown-item:hover {
-      background-color: #f7fafc;
-    }
-  </style>
 </head>
 
 <body>
@@ -100,87 +14,83 @@
   <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
   <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
   <script>
-document.addEventListener('DOMContentLoaded', function () {
-  var userData = validateUserDataFromCookie();
-  var loadingContainer = document.getElementById('loadingContainer');
-  var loginContainer = document.getElementById('loginContainer');
-  var profileContainer = document.getElementById('profileContainer');
+    document.addEventListener('DOMContentLoaded', function () {
+      var userData = validateUserDataFromCookie();
+      var loadingContainer = document.getElementById('loadingContainer');
+      var loginContainer = document.getElementById('loginContainer');
+      var profileContainer = document.getElementById('profileContainer');
 
-  var currentUrl = window.location.href;
-  var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
+      var currentUrl = window.location.href;
+      var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
 
-  if (userData) {
-    // User is logged in
-    var profilePicture = document.createElement('img');
-    profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/@' + userData.username + '.png';
-    profilePicture.alt = 'Profile Picture';
-    profilePicture.classList.add('rounded-full', 'profile-picture', 'float-right');
-    profilePicture.addEventListener('click', function (event) {
-      event.preventDefault();
-      var dropdownMenu = document.getElementById('dropdownMenu');
-      dropdownMenu.classList.toggle('show');
+      if (userData) {
+        // User is logged in
+        var profilePicture = document.createElement('img');
+        profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/@' + userData.username + '.png';
+        profilePicture.alt = 'Profile Picture';
+        profilePicture.classList.add('rounded-full', 'profile-picture', 'float-right');
+        profilePicture.addEventListener('click', function (event) {
+          event.preventDefault();
+          var dropdownMenu = document.getElementById('dropdownMenu');
+          dropdownMenu.classList.toggle('show');
+        });
+
+        var dropdownContainer = document.createElement('div');
+        dropdownContainer.classList.add('profile-container');
+
+        var dropdownMenu = document.createElement('div');
+        dropdownMenu.id = 'dropdownMenu';
+        dropdownMenu.classList.add('dropdown-menu');
+
+        var dropdownItems = [
+          { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
+          { text: 'Settings', link: 'https://settings.yeahgames.net' },
+          { text: 'Logout', link: 'https://accounts.yeahgames.net/logout?continue=' + encodeURIComponent(currentUrl) }
+        ];
+
+        dropdownItems.forEach(function (item) {
+          var dropdownItem = document.createElement('a');
+          dropdownItem.href = item.link;
+          dropdownItem.classList.add('dropdown-item');
+          dropdownItem.innerHTML = item.text;
+          dropdownMenu.appendChild(dropdownItem);
+        });
+
+        dropdownContainer.appendChild(profilePicture);
+        dropdownContainer.appendChild(dropdownMenu);
+        profileContainer.appendChild(dropdownContainer);
+
+        loadingContainer.style.display = 'none';
+        loginContainer.style.display = 'block';
+      } else {
+        var loginButton = document.createElement('a');
+        loginButton.href = loginUrl;
+        loginButton.id = 'loginButton';
+        loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded', 'float-right');
+        loginButton.innerHTML = 'Login';
+
+        loginContainer.style.display = 'none';
+
+        loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
+
+        setTimeout(function () {
+          loadingContainer.style.display = 'none';
+          loginContainer.style.display = 'block';
+        }, 2000); 
+
+        loginContainer.appendChild(loginButton);
+      }
+
+      document.addEventListener('click', function (event) {
+        var targetElement = event.target;
+        var dropdownMenu = document.getElementById('dropdownMenu');
+        var profilePicture = document.querySelector('.profile-picture');
+
+        if (!dropdownMenu.contains(targetElement) && !profilePicture.contains(targetElement)) {
+          dropdownMenu.classList.remove('show');
+        }
+      });
     });
-
-    var dropdownContainer = document.createElement('div');
-    dropdownContainer.classList.add('profile-container');
-
-    var dropdownMenu = document.createElement('div');
-    dropdownMenu.id = 'dropdownMenu';
-    dropdownMenu.classList.add('dropdown-menu');
-
-    var dropdownItems = [
-      { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
-      { text: 'Settings', link: 'https://settings.yeahgames.net' },
-      { text: 'Logout', link: 'https://accounts.yeahgames.net/logout?continue=' + encodeURIComponent(currentUrl) }
-    ];
-
-    dropdownItems.forEach(function (item) {
-      var dropdownItem = document.createElement('a');
-      dropdownItem.href = item.link;
-      dropdownItem.classList.add('dropdown-item');
-      dropdownItem.innerHTML = item.text;
-      dropdownMenu.appendChild(dropdownItem);
-    });
-
-    dropdownContainer.appendChild(profilePicture);
-    dropdownContainer.appendChild(dropdownMenu);
-    profileContainer.appendChild(dropdownContainer);
-
-    loadingContainer.style.display = 'none';
-    loginContainer.style.display = 'block';
-  } else {
-    var loginButton = document.createElement('a');
-    loginButton.href = loginUrl;
-    loginButton.id = 'loginButton';
-    loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
-    loginButton.innerHTML = 'Login';
-
-    // Hide the login container initially
-    loginContainer.style.display = 'none';
-
-    // Show loading icon when validation starts
-    loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
-
-    // Hide loading icon and show login container when validation completes
-    setTimeout(function () {
-      loadingContainer.style.display = 'none';
-      loginContainer.style.display = 'block';
-    }, 2000); // Adjust the duration based on your validation process
-
-    loginContainer.appendChild(loginButton);
-  }
-
-  // Event listener to hide dropdown when clicking outside
-  document.addEventListener('click', function (event) {
-    var targetElement = event.target;
-    var dropdownMenu = document.getElementById('dropdownMenu');
-    var profilePicture = document.querySelector('.profile-picture');
-
-    if (!dropdownMenu.contains(targetElement) && !profilePicture.contains(targetElement)) {
-      dropdownMenu.classList.remove('show');
-    }
-  });
-});
 
 
 
