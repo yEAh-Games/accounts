@@ -100,7 +100,7 @@
   <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
   <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
   <script>
-    document.addEventListener('DOMContentLoaded', function () {
+document.addEventListener('DOMContentLoaded', function () {
   var userData = validateUserDataFromCookie();
   var loadingContainer = document.getElementById('loadingContainer');
   var loginContainer = document.getElementById('loginContainer');
@@ -147,6 +147,7 @@
     profileContainer.appendChild(dropdownContainer);
 
     loadingContainer.style.display = 'none';
+    loginContainer.style.display = 'block';
   } else {
     var loginButton = document.createElement('a');
     loginButton.href = loginUrl;
@@ -154,17 +155,22 @@
     loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
     loginButton.innerHTML = 'Login';
 
-    loginContainer.appendChild(loginButton);
+    // Hide the login container initially
+    loginContainer.style.display = 'none';
 
     // Show loading icon when validation starts
     loadingContainer.innerHTML = '<div class="loading-spinner"></div>';
 
-    // Hide loading icon when validation completes
+    // Hide loading icon and show login container when validation completes
     setTimeout(function () {
       loadingContainer.style.display = 'none';
+      loginContainer.style.display = 'block';
     }, 2000); // Adjust the duration based on your validation process
+
+    loginContainer.appendChild(loginButton);
   }
 });
+
 
   </script>
 </body>
