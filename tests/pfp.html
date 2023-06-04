@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Validation</title>
+</head>
+
+<body>
+  <div id="loginContainer"></div>
+  <div id="profileContainer"></div>
+  <script src="https://accounts.yeahgames.net/system/all/sha256.js"></script>
+  <script src="https://accounts.yeahgames.net/system/validation/main.js"></script>
+  <script>
+    var userData = validateUserDataFromCookie();
+
+    if (userData) {
+      // User is logged in
+      var profilePicture = document.createElement('img');
+      profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/' + userData.username + '.png';
+      profilePicture.alt = 'Profile Picture';
+      profilePicture.classList.add('rounded-full');
+      profilePicture.classList.add('w-10');
+      profilePicture.classList.add('h-10');
+      profilePicture.style.borderWidth = '2px';
+      profilePicture.style.borderColor = '#CBD5E0';
+
+      var dropdownContainer = document.createElement('div');
+      dropdownContainer.classList.add('relative');
+
+      var dropdownButton = document.createElement('button');
+      dropdownButton.type = 'button';
+      dropdownButton.classList.add('rounded-md');
+      dropdownButton.classList.add('text-gray-300');
+      dropdownButton.classList.add('hover:text-white');
+      dropdownButton.classList.add('focus:outline-none');
+      dropdownButton.classList.add('focus:text-white');
+      dropdownButton.classList.add('transition');
+      dropdownButton.classList.add('duration-300');
+      dropdownButton.classList.add('ease-in-out');
+      dropdownButton.style.backgroundColor = 'transparent';
+
+      var dropdownMenu = document.createElement('div');
+      dropdownMenu.classList.add('absolute');
+      dropdownMenu.classList.add('right-0');
+      dropdownMenu.classList.add('w-48');
+      dropdownMenu.classList.add('mt-2');
+      dropdownMenu.classList.add('py-2');
+      dropdownMenu.classList.add('bg-white');
+      dropdownMenu.classList.add('rounded-md');
+      dropdownMenu.classList.add('shadow-lg');
+      dropdownMenu.classList.add('ring-1');
+      dropdownMenu.classList.add('ring-black');
+      dropdownMenu.classList.add('ring-opacity-5');
+      dropdownMenu.classList.add('focus:outline-none');
+      dropdownMenu.style.display = 'none';
+
+      var dropdownItems = [
+        { text: 'Profile', link: 'https://example.com/profile' },
+        { text: 'Settings', link: 'https://example.com/settings' },
+        { text: 'Logout', link: 'https://example.com/logout' }
+      ];
+
+      dropdownItems.forEach(function (item) {
+        var dropdownItem = document.createElement('a');
+        dropdownItem.href = item.link;
+        dropdownItem.classList.add('block');
+        dropdownItem.classList.add('px-4');
+        dropdownItem.classList.add('py-2');
+        dropdownItem.classList.add('text-sm');
+        dropdownItem.classList.add('text-gray-700');
+        dropdownItem.classList.add('hover:bg-gray-100');
+        dropdownItem.style.cursor = 'pointer';
+        dropdownItem.innerHTML = item.text;
+
+        dropdownMenu.appendChild(dropdownItem);
+      });
+
+      dropdownButton.addEventListener('click', function () {
+        if (dropdownMenu.style.display === 'none') {
+          dropdownMenu.style.display = 'block';
+        } else {
+          dropdownMenu.style.display = 'none';
+        }
+      });
+
+      var profileContainer = document.getElementById('profileContainer');
+      profileContainer.appendChild(profilePicture);
+      dropdownContainer.appendChild(dropdownButton);
+      dropdownContainer.appendChild(dropdownMenu);
+      profileContainer.appendChild(dropdownContainer);
+    } else {
+      // User is not logged in, display login button
+      var loginButton = document.createElement('a');
+      loginButton.href = 'https://accounts.yeahgames.net/login';
+      loginButton.id = 'loginButton';
+      loginButton.classList.add('bg-blue-500');
+      loginButton.classList.add('hover:bg-blue-700');
+      loginButton.classList.add('text-white');
+      loginButton.classList.add('font-bold');
+      loginButton.classList.add('py-2');
+      loginButton.classList.add('px-4');
+      loginButton.classList.add('rounded');
+      loginButton.innerHTML = 'Login';
+
+      var loginContainer = document.getElementById('loginContainer');
+      loginContainer.appendChild(loginButton);
+    }
+  </script>
+</body>
+
+</html>
