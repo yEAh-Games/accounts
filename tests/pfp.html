@@ -77,8 +77,8 @@
         var dropdownContainer = document.createElement('div');
         dropdownContainer.classList.add('relative');
 
-        var dropdownButton = document.createElement('button');
-        dropdownButton.type = 'button';
+        var dropdownButton = document.createElement('a');
+        dropdownButton.href = '#';
         dropdownButton.classList.add('rounded-md');
         dropdownButton.classList.add('text-gray-300');
         dropdownButton.classList.add('hover:text-white');
@@ -125,7 +125,8 @@
           dropdownMenu.appendChild(dropdownItem);
         });
 
-        dropdownButton.addEventListener('click', function () {
+        dropdownButton.addEventListener('click', function (event) {
+          event.preventDefault();
           dropdownMenu.classList.toggle('show');
         });
 
