@@ -1,4 +1,12 @@
 function validateUserDataFromCookie() {
+    var cookieData = getCookie('yeahgames_userdata');
+    var vCookieData = getCookie('yeahgames_v');
+
+    if (!cookieData || !vCookieData) {
+        console.log('User data is not found or incomplete');
+        return null;
+    }
+
     var usernameMapping = {
         'a': 'bR',
         'b': 'cY',
@@ -39,15 +47,6 @@ function validateUserDataFromCookie() {
         '-': '-G',
         '.': '.F',
     };
-
-    var cookieData = getCookie('yeahgames_userdata');
-    var vCookieData = getCookie('yeahgames_v');
-
-    if (!cookieData || !vCookieData) {
-        console.log('User data is not found or incomplete');
-        redirectToLogin(true);
-        return null;
-    }
 
     var jsonData = decodeURIComponent(cookieData);
     var userData = JSON.parse(jsonData);
@@ -101,13 +100,15 @@ function getCookie(name) {
 function redirectToLogin(corrupted) {
     var cookieData = getCookie('yeahgames_userdata');
     var vCookieData = getCookie('yeahgames_v');
-  
+
     var url = 'https://accounts.yeahgames.net/logout?continue=https%3A%2F%2Faccounts.yeahgames.net%2Flogin';
-  
+
     if (corrupted || (!cookieData && !vCookieData)) {
-      url += '%3Fcorrupted%3Dtrue';
+        url += '%3Fcorrupted%3Dtrue';
     }
-  
+
     window.location.href = url;
-  }
-  
+}
+
+// Call the function to validate the user data
+validateUserDataFromCookie();
