@@ -3,7 +3,7 @@ function validateUserDataFromCookie() {
     var vCookieData = getCookie('yeahgames_v');
 
     if (!cookieData || !vCookieData) {
-        console.log('User data is not found or incomplete');
+        console.log('User is not logged in. yAuth validation won\'t run.');
         return null;
     }
 
@@ -110,5 +110,4 @@ function redirectToLogin(corrupted) {
     window.location.href = url;
 }
 
-// Call the function to validate the user data
 validateUserDataFromCookie();
