@@ -169,7 +169,19 @@ document.addEventListener('DOMContentLoaded', function () {
 
     loginContainer.appendChild(loginButton);
   }
+
+  // Event listener to hide dropdown when clicking outside
+  document.addEventListener('click', function (event) {
+    var targetElement = event.target;
+    var dropdownMenu = document.getElementById('dropdownMenu');
+    var profilePicture = document.querySelector('.profile-picture');
+
+    if (!dropdownMenu.contains(targetElement) && !profilePicture.contains(targetElement)) {
+      dropdownMenu.classList.remove('show');
+    }
+  });
 });
+
 
 
   </script>
