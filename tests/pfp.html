@@ -48,6 +48,9 @@
       var loginContainer = document.getElementById('loginContainer');
       var profileContainer = document.getElementById('profileContainer');
 
+      var currentUrl = window.location.href;
+      var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
+
       if (userData) {
         // User is logged in
         var profilePicture = document.createElement('img');
@@ -88,9 +91,6 @@
         dropdownMenu.classList.add('ring-opacity-5');
         dropdownMenu.classList.add('focus:outline-none');
         dropdownMenu.style.display = 'none';
-
-        var currentUrl = window.location.href;
-        var loginUrl = 'https://accounts.yeahgames.net/login?continue=' + encodeURIComponent(currentUrl);
 
         var dropdownItems = [
           { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
