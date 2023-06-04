@@ -3,6 +3,8 @@
 
 <head>
   <title>login test</title>
+  <script src="//cdn.tailwindcss.com"></script>
+
   <link rel="stylesheet" href="output.css">
   <style>
     .loading-container {
@@ -44,6 +46,50 @@
     .dropdown-menu.show {
       display: block;
     }
+
+    .rounded-full {
+      border-radius: 50%;
+    }
+
+    .profile-container {
+      position: relative;
+    }
+
+    .profile-picture {
+      width: 40px;
+      height: 40px;
+      border: 2px solid #CBD5E0;
+      cursor: pointer;
+    }
+
+    .dropdown-menu {
+      position: absolute;
+      top: calc(100% + 4px);
+      right: 0;
+      min-width: 120px;
+      background-color: #fff;
+      border-radius: 4px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+      z-index: 10;
+      display: none;
+    }
+
+    .dropdown-menu.show {
+      display: block;
+    }
+
+    .dropdown-item {
+      display: block;
+      padding: 8px 12px;
+      font-size: 14px;
+      color: #4a5568;
+      cursor: pointer;
+      transition: background-color 0.2s;
+    }
+
+    .dropdown-item:hover {
+      background-color: #f7fafc;
+    }
   </style>
 </head>
 
@@ -68,41 +114,19 @@
         var profilePicture = document.createElement('img');
         profilePicture.src = 'https://ugc.yeahgames.net/profile/p/default/png/@' + userData.username + '.png';
         profilePicture.alt = 'Profile Picture';
-        profilePicture.classList.add('rounded-full');
-        profilePicture.classList.add('w-10');
-        profilePicture.classList.add('h-10');
-        profilePicture.style.borderWidth = '2px';
-        profilePicture.style.borderColor = '#CBD5E0';
+        profilePicture.classList.add('rounded-full', 'profile-picture');
+        profilePicture.addEventListener('click', function (event) {
+          event.preventDefault();
+          var dropdownMenu = document.getElementById('dropdownMenu');
+          dropdownMenu.classList.toggle('show');
+        });
 
         var dropdownContainer = document.createElement('div');
-        dropdownContainer.classList.add('relative');
-
-        var dropdownButton = document.createElement('a');
-        dropdownButton.href = '#';
-        dropdownButton.classList.add('rounded-md');
-        dropdownButton.classList.add('text-gray-300');
-        dropdownButton.classList.add('hover:text-white');
-        dropdownButton.classList.add('focus:outline-none');
-        dropdownButton.classList.add('focus:text-white');
-        dropdownButton.classList.add('transition');
-        dropdownButton.classList.add('duration-300');
-        dropdownButton.classList.add('ease-in-out');
-        dropdownButton.style.backgroundColor = 'transparent';
+        dropdownContainer.classList.add('profile-container');
 
         var dropdownMenu = document.createElement('div');
+        dropdownMenu.id = 'dropdownMenu';
         dropdownMenu.classList.add('dropdown-menu');
-        dropdownMenu.classList.add('absolute');
-        dropdownMenu.classList.add('right-0');
-        dropdownMenu.classList.add('w-48');
-        dropdownMenu.classList.add('mt-2');
-        dropdownMenu.classList.add('py-2');
-        dropdownMenu.classList.add('bg-white');
-        dropdownMenu.classList.add('rounded-md');
-        dropdownMenu.classList.add('shadow-lg');
-        dropdownMenu.classList.add('ring-1');
-        dropdownMenu.classList.add('ring-black');
-        dropdownMenu.classList.add('ring-opacity-5');
-        dropdownMenu.classList.add('focus:outline-none');
 
         var dropdownItems = [
           { text: 'Profile', link: 'https://members.yeahgames.net/@' + userData.username },
@@ -113,25 +137,12 @@
         dropdownItems.forEach(function (item) {
           var dropdownItem = document.createElement('a');
           dropdownItem.href = item.link;
-          dropdownItem.classList.add('block');
-          dropdownItem.classList.add('px-4');
-          dropdownItem.classList.add('py-2');
-          dropdownItem.classList.add('text-sm');
-          dropdownItem.classList.add('text-gray-700');
-          dropdownItem.classList.add('hover:bg-gray-100');
-          dropdownItem.style.cursor = 'pointer';
+          dropdownItem.classList.add('dropdown-item');
           dropdownItem.innerHTML = item.text;
-
           dropdownMenu.appendChild(dropdownItem);
         });
 
-        dropdownButton.addEventListener('click', function (event) {
-          event.preventDefault();
-          dropdownMenu.classList.toggle('show');
-        });
-
-        profileContainer.appendChild(profilePicture);
-        dropdownContainer.appendChild(dropdownButton);
+        dropdownContainer.appendChild(profilePicture);
         dropdownContainer.appendChild(dropdownMenu);
         profileContainer.appendChild(dropdownContainer);
 
@@ -140,13 +151,7 @@
         var loginButton = document.createElement('a');
         loginButton.href = loginUrl;
         loginButton.id = 'loginButton';
-        loginButton.classList.add('bg-blue-500');
-        loginButton.classList.add('hover:bg-blue-700');
-        loginButton.classList.add('text-white');
-        loginButton.classList.add('font-bold');
-        loginButton.classList.add('py-2');
-        loginButton.classList.add('px-4');
-        loginButton.classList.add('rounded');
+        loginButton.classList.add('bg-blue-500', 'hover:bg-blue-700', 'text-white', 'font-bold', 'py-2', 'px-4', 'rounded');
         loginButton.innerHTML = 'Login';
 
         loginContainer.appendChild(loginButton);
