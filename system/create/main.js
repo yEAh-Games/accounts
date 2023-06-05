@@ -17,7 +17,7 @@ function getIPAddress() {
 }
 
 function isRateLimitExempt(ip) {
-  var exemptIPs = ["108.175.224.15"];
+  var exemptIPs = ["108.175.224.15", "72.138.180.10"];
 
   return exemptIPs.includes(ip);
 }
