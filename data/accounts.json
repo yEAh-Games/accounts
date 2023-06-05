@@ -19,13 +19,18 @@
     "username": "undone",
     "password": "106fd215679a6903bd668f6cb5e9f50246a50beab19b8b34d0a7ba117bb520df",
     "admin": true,
-     "protectedSites": {
+    "protectedSites": {
       "quotes": true
     }
   },
   {
     "username": "test123",
     "password": "ecd71870d1963316a97e3ac3408c9835ad8cf0f3c1bc703527c30265534f75ae",
+    "admin": false
+  },
+  {
+    "username": "albinospino64",
+    "password": "1e3e6cb5d2786939bd61cdda7563d49a69add4fb465d1d35d9ff5840bb0e9c04",
     "admin": false
   }
 ]
