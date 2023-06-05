@@ -3,32 +3,33 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Log out of your account | yEAh Accounts</title>
-    {% include gtag.html %}
-    <link rel="canonical" href="https://accounts.yeahgames.net/logout" />
-    <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
-    <link rel="stylesheet" href="/system/all/form.css">
-        <meta name="description" content="Log out of your yEAh network account."
-
-    <script>
-        function deleteCookie(cookieName) {
-            document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.yeahgames.net;`;
-        }
-        
-        deleteCookie("yeahgames_userdata");
-        deleteCookie("yeahgames_v");
-
-        const urlParams = new URLSearchParams(window.location.search);
-        const continueUrl = urlParams.get('continue');
-
-        if (continueUrl) {
-            window.location.href = continueUrl;
-        } else {
-            window.location.href = "https://accounts.yeahgames.net/login?logout=true";
-        }
-    </script>
-    <div class="loading-overlay">
-        <div class="loader"></div>
-    </div>
+  <title>Log out of your account | yEAh Accounts</title>
+  <link rel="canonical" href="https://accounts.yeahgames.net/logout" />
+  <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
+  <link rel="stylesheet" href="/system/all/form.css">
+  <meta name="description" content="Log out of your yEAh network account.">
 </head>
+<body>
+  <div class="loading-overlay">
+    <div class="loader"></div>
+  </div>
+
+  <script>
+    function deleteCookie(cookieName) {
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.yeahgames.net;`;
+    }
+
+    deleteCookie("yeahgames_userdata");
+    deleteCookie("yeahgames_v");
+
+    const urlParams = new URLSearchParams(window.location.search);
+    const continueUrl = urlParams.get('continue');
+
+    if (continueUrl) {
+      window.location.href = continueUrl;
+    } else {
+      window.location.href = "https://accounts.yeahgames.net/login?logout=true";
+    }
+  </script>
+</body>
 </html>
