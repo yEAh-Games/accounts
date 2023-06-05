@@ -18,7 +18,10 @@
   {
     "username": "undone",
     "password": "106fd215679a6903bd668f6cb5e9f50246a50beab19b8b34d0a7ba117bb520df",
-    "admin": true
+    "admin": true,
+     "protectedSites": {
+      "quotes": true
+    }
   },
   {
     "username": "test123",
