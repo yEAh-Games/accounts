@@ -32,5 +32,10 @@
     "username": "albinospino64",
     "password": "1e3e6cb5d2786939bd61cdda7563d49a69add4fb465d1d35d9ff5840bb0e9c04",
     "admin": false
+  },
+  {
+    "username": "ratelimittest1",
+    "password": "c11522d5facc73cd123074e46e90577528aee2429991b09c07d965a11605d6ed",
+    "admin": false
   }
 ]
