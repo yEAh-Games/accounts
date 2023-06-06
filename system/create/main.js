@@ -152,7 +152,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
 
         var profileContent = `---
 layout: profile
-permalink: /${username}
+permalink: /@${username}
 ---
 `;
 
