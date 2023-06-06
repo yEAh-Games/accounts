@@ -16,6 +16,25 @@ function getIPAddress() {
     });
 }
 
+function formatDate(date) {
+  var day = date.getDate();
+  var month = date.getMonth() + 1; // Months are zero-based
+  var year = date.getFullYear();
+
+  // Add leading zeros if necessary
+  if (day < 10) {
+    day = '0' + day;
+  }
+  if (month < 10) {
+    month = '0' + month;
+  }
+
+  return day + '-' + month + '-' + year;
+}
+
+var today = new Date();
+var formattedDate = formatDate(today);
+
 function isRateLimitExempt(ip) {
   var exemptIPs = ["104.222.113.117", "72.138.180.10"];
 
@@ -153,6 +172,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
         var profileContent = `---
 layout: profile
 permalink: /@${username}
+joindate: ${formattedDate}
 ---
 `;
 
