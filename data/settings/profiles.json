@@ -1,11 +1,10 @@
 [
     {
       "username": "profiletest1",
-      "name": "John Doe",
-      "email": "john.doe@example.com",
-      "isAdmin": true,
+      "name": "Profile Test",
+      "email": "profiletest@yeahgames.net",
       "roles": ["Role 1", "Role 2"],
-      "website": "https://example.com",
+      "website": "https://yeahgames.net/profile",
       "socialLinks": {
         "instagram": "https://instagram.com/john_doe",
         "twitter": "https://twitter.com/john_doe",
@@ -14,7 +13,6 @@
       },
       "otherLinks": ["https://link1.com", "https://link2.com", "https://link3.com"],
       "registeredSites": ["Site 1", "Site 2", "Site 3"],
-      "yankAccount": 5000
     }
   ]
   
