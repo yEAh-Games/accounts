@@ -148,13 +148,39 @@ document.getElementById("createAccountForm").addEventListener("submit", function
     })
     .then(function (response) {
       if (response.ok) {
+        loadingMessage.textContent = "Creating profile...";
+
+        var profileContent = `---
+layout: profile
+permalink: /${username}
+---
+`;
+
+        var profileBase64Content = btoa(profileContent);
+
+        return fetch("https://api.github.com/repos/yeah-games/profiles/contents/profiles/" + encodeURIComponent("@" + username + ".md"), {
+          method: "PUT",
+          headers: {
+            "Authorization": "Bearer " + token
+          },
+          body: JSON.stringify({
+            content: profileBase64Content,
+            message: "Created profile: @" + username,
+          })
+        });
+      } else {
+        throw new Error("Failed to update database.");
+      }
+    })
+    .then(function (response) {
+      if (response.ok) {
         loadingMessage.textContent = "Writing to database...";
 
         return new Promise(function (resolve) {
           setTimeout(resolve, 1500);
         });
       } else {
-        throw new Error("Failed to update database.");
+        throw new Error("Failed to create profile.");
       }
     })
     .then(function () {
