@@ -37,5 +37,10 @@
     "username": "ratelimittest1",
     "password": "c11522d5facc73cd123074e46e90577528aee2429991b09c07d965a11605d6ed",
     "admin": false
+  },
+  {
+    "username": "profiletest1",
+    "password": "c2eceefc7bfbce2a46de1bc1156392ad567a46362ec07dfa4860f64491a0e836",
+    "admin": false
   }
 ]
