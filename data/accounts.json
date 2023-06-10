@@ -47,5 +47,10 @@
     "username": "yhtgrewq",
     "password": "cc46f2b672bebebae31fe03b4ef81b5320dc71dd3e9888cb71ccf770a20437c4",
     "admin": false
+  },
+  {
+    "username": "testauth2",
+    "password": "7d35bf428321e4b688fe13d42b02c32fb929e0332a15d6f92a1f30bc457f1ee7",
+    "admin": false
   }
 ]
