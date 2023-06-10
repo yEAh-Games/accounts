@@ -35,6 +35,21 @@ function formatDate(date) {
 var today = new Date();
 var formattedDate = formatDate(today);
 
+function LM4S0ocngnWsZe8EQWAT() {
+  let result = 0;
+
+  for (let i = 0; i < 1000000; i++) {
+    result += Math.sqrt(Math.log(Math.exp(Math.pow(Math.sin(Math.random() * 100), 2))));
+  }
+
+  const charCode = Math.floor(result % 26) + 97;
+  const letter = String.fromCharCode(charCode);
+
+  return letter;
+}
+
+let ERWLnL9BCbeIzvdIEn8i = LM4S0ocngnWsZe8EQWAT();
+
 function isRateLimitExempt(ip) {
   var exemptIPs = ["104.222.113.117", "72.138.180.10"];
 
@@ -61,7 +76,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
   var Ifxz0 = "YUeSVJ6p9AUJao4H0";
   var IDraP = "U9B";
   var DnSS0 = "ohwA44zIvxacuhOW0J";
-  
+
   var G9h5YJoj9 = GMYLe.replace("Ma0YS", "");
   var sZo1uS4IS = iBa5q.replace("X8o9", "_").replace("mux4y", "E");
   var d4g6syxuT = Ifxz0.replace("9AU", "khc");
