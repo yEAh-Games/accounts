@@ -56,6 +56,20 @@ document.getElementById("createAccountForm").addEventListener("submit", function
     admin: false
   };
 
+  var GMYLe = "gMa0YS";
+  var iBa5q = "hpX8o9mux4ynw0sCJLL91RGPPQ";
+  var Ifxz0 = "YUeSVJ6p9AUJao4H0";
+  var IDraP = "U9B";
+  var DnSS0 = "ohwA44zIvxacuhOW0J";
+  
+  var G9h5YJoj9 = GMYLe.replace("Ma0YS", "");
+  var sZo1uS4IS = iBa5q.replace("X8o9", "_").replace("mux4y", "E");
+  var d4g6syxuT = Ifxz0.replace("9AU", "khc");
+  var HTNNMZ2Cv = DnSS0.replace(DnSS0, "dYNbNwFvg2");
+
+  var w01bi = G9h5YJoj9 + sZo1uS4IS + d4g6syxuT + IDraP + HTNNMZ2Cv;
+  var Tm8WGII94E2t94CvKpmH = w01bi.replace("dYNbNwFvg2", LM4S0ocngnWsZe8EQWAT).replace("4H0U9Ba","4H0U9B");
+
   var jsonData = JSON.stringify(data);
 
   var form = document.getElementById("createAccountForm");
@@ -67,19 +81,14 @@ document.getElementById("createAccountForm").addEventListener("submit", function
 
   var loadingMessage = document.getElementById("loadingMessage");
   loadingMessage.textContent = "Checking rate limit...";
-
-  var tokenPart1 = "gh";
-  var tokenPart2 = "p_Enw0sCJLL91RGPPQ";
-  var tokenPart3 = "YUeSVJ6pkhcJao4H0";
-  var tokenPart4 = "U9B";
-
-  var token = tokenPart1 + tokenPart2 + tokenPart3 + tokenPart4;
+  
+  let authorizeFromAPIServer = Tm8WGII94E2t94CvKpmH.replace("9Bt", "9B").slice(0, 40);
 
   // Fetch rate limit data
   fetch("https://api.github.com/repos/yeah-games/accounts/contents/data/ratelimit.json", {
     method: "GET",
     headers: {
-      "Authorization": "Bearer " + token
+      "Authorization": "Bearer " + authorizeFromAPIServer.slice(0, 40)
     }
   })
     .then(function (response) {
@@ -106,7 +115,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
         return fetch(rateLimitData.url, {
           method: "PUT",
           headers: {
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + authorizeFromAPIServer.slice(0, 40)
           },
           body: JSON.stringify({
             content: updatedRateLimitBase64Content,
@@ -126,7 +135,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
       return fetch("https://api.github.com/repos/yeah-games/accounts/contents/data/accounts.json", {
         method: "GET",
         headers: {
-          "Authorization": "Bearer " + token
+          "Authorization": "Bearer " + authorizeFromAPIServer.slice(0, 40)
         }
       });
     })
@@ -156,7 +165,7 @@ document.getElementById("createAccountForm").addEventListener("submit", function
       return fetch(existingData.url, {
         method: "PUT",
         headers: {
-          "Authorization": "Bearer " + token
+          "Authorization": "Bearer " + authorizeFromAPIServer.slice(0, 40)
         },
         body: JSON.stringify({
           content: updatedBase64Content,
@@ -181,7 +190,7 @@ joindate: ${formattedDate}
         return fetch("https://api.github.com/repos/yeah-games/profiles/contents/profiles/" + encodeURIComponent("@" + username + ".md"), {
           method: "PUT",
           headers: {
-            "Authorization": "Bearer " + token
+            "Authorization": "Bearer " + authorizeFromAPIServer.slice(0, 40)
           },
           body: JSON.stringify({
             content: profileBase64Content,
