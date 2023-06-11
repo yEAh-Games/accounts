@@ -3,7 +3,6 @@
     "username": "nnillat",
     "name": "Tallinn",
     "email": "tallinn@yeahgames.net",
-    "roles": ["Role 1", "Role 2"],
     "location": "Ottawa",
     "website": "https://www.yeahgames.net/flower",
     "about": "working profile",
@@ -17,35 +16,12 @@
       "https://link1.com",
       "https://link2.com",
       "https://link3.com"
-    ],
-    "registeredSites": ["Site 1", "Site 2", "Site 3"]
-  },
-  {
-    "username": "profiletest1",
-    "name": "Profile Test",
-    "email": "profiletest@yeahgames.net",
-    "roles": ["Role 1", "Role 2"],
-    "location": "gtgrjngrjngtl",
-    "website": "https://yeahgames.net/profile",
-    "about": "But I must explain to you how all this mistaken idea of denouncing pleasure and praising pain was born...",
-    "socialLinks": {
-      "instagram": "https://instagram.com/john_doe",
-      "twitter": "https://twitter.com/john_doe",
-      "github": "https://github.com/johndoe",
-      "discord": "https://discord.gg/johndoe"
-    },
-    "otherLinks": [
-      "https://link1.com",
-      "https://link2.com",
-      "https://link3.com"
-    ],
-    "registeredSites": ["Site 1", "Site 2", "Site 3"]
+    ]
   },
   {
     "username": "yeahgames",
     "name": "yEAh Games",
     "email": "admin@yeahgames.net",
-    "roles": ["Role 1", "Role 2"],
     "location": "Ottawa",
     "website": "https://www.yeahgames.net",
     "about": "Official yEAh account on the yEAh network.",
@@ -59,17 +35,15 @@
       "https://link1.com",
       "https://link2.com",
       "https://link3.com"
-    ],
-    "registeredSites": ["Site 1", "Site 2", "Site 3"]
+    ]
   },
   {
     "username": "undone",
     "name": "Aidan",
     "email": "aidan@yeahgames.net",
-    "roles": ["Role 1", "Role 2"],
     "location": "Ottawa",
     "website": "https://go.yeahgames.net/rick",
-    "about": "balls",
+    "about": "React developer for yEAh Games",
     "socialLinks": {
       "instagram": "https://instagram.com/john_doe",
       "twitter": "https://twitter.com/john_doe",
@@ -80,7 +54,25 @@
       "https://link1.com",
       "https://link2.com",
       "https://link3.com"
-    ],
-    "registeredSites": ["Site 1", "Site 2", "Site 3"]
+    ]
+  },
+      {
+    "username": "albinospino64",
+    "name": "Roan",
+    "email": "roan@roanly.xyz",
+    "location": "Ottawa",
+    "website": "https://roanly.xyz",
+    "about": "RITNL",
+    "socialLinks": {
+      "instagram": "https://instagram.com/john_doe",
+      "twitter": "https://twitter.com/john_doe",
+      "github": "https://github.com/johndoe",
+      "discord": "https://discord.gg/johndoe"
+    },
+    "otherLinks": [
+      "https://link1.com",
+      "https://link2.com",
+      "https://link3.com"
+    ]
   }
 ]
