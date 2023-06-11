@@ -32,25 +32,8 @@
     "username": "albinospino64",
     "password": "1e3e6cb5d2786939bd61cdda7563d49a69add4fb465d1d35d9ff5840bb0e9c04",
     "admin": false
-  },
-  {
-    "username": "ratelimittest1",
-    "password": "c11522d5facc73cd123074e46e90577528aee2429991b09c07d965a11605d6ed",
-    "admin": false
-  },
-  {
-    "username": "profiletest1",
-    "password": "c2eceefc7bfbce2a46de1bc1156392ad567a46362ec07dfa4860f64491a0e836",
-    "admin": false
-  },
-  {
-    "username": "yhtgrewq",
-    "password": "cc46f2b672bebebae31fe03b4ef81b5320dc71dd3e9888cb71ccf770a20437c4",
-    "admin": false
-  },
-  {
-    "username": "testauth2",
-    "password": "7d35bf428321e4b688fe13d42b02c32fb929e0332a15d6f92a1f30bc457f1ee7",
-    "admin": false
+    "protectedSites": {
+     "quotes": true
+    }
   }
 ]
