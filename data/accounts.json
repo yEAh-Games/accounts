@@ -31,9 +31,9 @@
   {
     "username": "albinospino64",
     "password": "1e3e6cb5d2786939bd61cdda7563d49a69add4fb465d1d35d9ff5840bb0e9c04",
-    "admin": false
+    "admin": false,
     "protectedSites": {
-     "quotes": true
+    "quotes": true
     }
   }
 ]
