@@ -2,3 +2,4 @@ Sitemap: https://accounts.yeahgames.net/sitemap.xml
 
 User-agent: *
 Disallow: /data/*
+Disallow: /tests/*
