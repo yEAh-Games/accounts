@@ -52,5 +52,10 @@
     "username": "me",
     "password": "344c96b185c38071db179979b6c64e47f264aa6ebfed84753957b9711da9cb3f",
     "admin": false
+  },
+  {
+    "username": "sitestest",
+    "password": "f45bf6c53ab1604da2e37f437316a7648b4a59f4e43998d6290b632b42522985",
+    "admin": false
   }
 ]
