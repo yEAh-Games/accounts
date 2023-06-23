@@ -62,5 +62,10 @@
     "username": "guyman147",
     "password": "f3d2e59ef9dec2216ae9c192243e819155971695f84e601d3a05b4fe26a48bec",
     "admin": false
+  },
+  {
+    "username": "testauth1234",
+    "password": "643866f6f7723eb4714fe138f7c63b0bc17de83da993f8f023cb4cd300a6cb86",
+    "admin": false
   }
 ]
