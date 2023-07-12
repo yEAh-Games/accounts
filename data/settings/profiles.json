@@ -3,22 +3,8 @@
     "username": "nnillat",
     "name": "Tallinn",
     "email": "tallinn@yeahgames.net",
-    "roles": ["Role 1", "Role 2"],
     "location": "Ottawa",
-    "website": "https://www.yeahgames.net/flower",
-    "about": "working profile",
-    "socialLinks": {
-      "instagram": "https://instagram.com/john_doe",
-      "twitter": "https://twitter.com/john_doe",
-      "github": "https://github.com/johndoe",
-      "discord": "https://discord.gg/johndoe"
-    },
-    "otherLinks": [
-      "https://link1.com",
-      "https://link2.com",
-      "https://link3.com"
-    ],
-    "registeredSites": ["Site 1", "Site 2", "Site 3"]
+    "website": "https://www.yeahgames.net/flower"
   },
   {
     "username": "profiletest1",
