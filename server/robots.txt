@@ -1,3 +1,7 @@
+---
+permalink: /robots.txt
+---
+
 Sitemap: https://accounts.yeahgames.net/sitemap.xml
 
 User-agent: *
