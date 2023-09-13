@@ -67,5 +67,10 @@
     "username": "testauth1234",
     "password": "643866f6f7723eb4714fe138f7c63b0bc17de83da993f8f023cb4cd300a6cb86",
     "admin": false
+  },
+  {
+    "username": "quotes",
+    "password": "bf4e97926392f1637a9b0e5a02f69d2a4fb202cfa9ddd9e3453613e44d9ff676",
+    "admin": false
   }
 ]
