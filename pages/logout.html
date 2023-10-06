@@ -5,15 +5,15 @@ permalink: /logout
 <html>
 <head>
   <title>Log out of your account | yEAh Accounts</title>
-  <link rel="canonical" href="https://accounts.yeahgames.net/logout">
-  <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">  
+  <link rel="canonical" href="https://accounts.ynwk.org/logout">
+  <link rel="icon" href="https://cdn.ynwk.org/img/branding/logos/default/logo.svg">  
   <meta name="description" content="Log out of your yEAh network account.">
   {% include loader-ns.html %}
 </head>
 <body>
   <script>
     function deleteCookie(cookieName) {
-      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.yeahgames.net;`;
+      document.cookie = `${cookieName}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/; domain=.ynwk.org;`;
     }
 
     deleteCookie("yeahgames_userdata");
@@ -25,7 +25,7 @@ permalink: /logout
     if (continueUrl) {
       window.location.href = continueUrl;
     } else {
-      window.location.href = "https://accounts.yeahgames.net/login?logout=true";
+      window.location.href = "https://accounts.ynwk.org/login?logout=true";
     }
   </script>
 </body>
