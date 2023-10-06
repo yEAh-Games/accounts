@@ -8,8 +8,8 @@ permalink: /login
     <title>Log in to your account | yEAh Accounts</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description" content="Log into your yEAh network account.">
-    <link rel="canonical" href="https://accounts.yeahgames.net/login">
-    <link rel="icon" href="https://cdn.yeahgames.net/img/branding/logos/default/logo.svg">
+    <link rel="canonical" href="https://accounts.ynwk.org/login">
+    <link rel="icon" href="https://cdn.ynwk.org/img/branding/logos/default/logo.svg">
     <link rel="stylesheet" href="/system/all/all.css">
 
     {% include loader.html %}
@@ -57,7 +57,7 @@ permalink: /login
                                 </div>
                             </div>
                             <a title="Forgot your username or password? Send us an email and we'll help you out."
-                                href="mailto:accounts+forgot@yeahgames.net"
+                                href="mailto:accounts+forgot@ynwk.org"
                                 class="text-sm font-medium text-primary-600 hover:underline dark:text-primary-500 float-right"
                                 style="color:#ff4747">Forgot password?</a>
                         </div>
@@ -78,9 +78,9 @@ permalink: /login
                     </form>
                 </div>
             </div>
-            <a href="https://www.yeahgames.net"
+            <a href="https://www.ynwk.org"
                 class="flex items-center text-2xl font-semibold text-gray-900 dark:text-white">
-                <img class="w-40 h-40" src="https://cdn.yeahgames.net/img/branding/logos/text/red.svg" alt="logo">
+                <img class="w-40 h-40" src="https://cdn.ynwk.org/img/branding/logos/text/red.svg" alt="logo">
             </a>
         </div>
     </section>
@@ -91,7 +91,7 @@ permalink: /login
             if (cookieExists) {
                 var urlParams = new URLSearchParams(window.location.search);
                 var continueUrl = urlParams.get('continue');
-                var redirectUrl = continueUrl || 'https://www.yeahgames.net';
+                var redirectUrl = continueUrl || 'https://www.ynwk.org';
                 window.location.href = redirectUrl;
             }
         })();
@@ -125,7 +125,7 @@ permalink: /login
             <h2 class="text-xl font-bold mb-4">Login corrupted</h2>
             <p>Your login cookie has been locally corrupted.</p>
             This isn't a security risk and is usually in error. <br><br>Please log in again to revalidate it. <br><em>If
-                this happens repeatedly, <a style="color:#ff4747" href="mailto:accounts@yeahgames.net">contact
+                this happens repeatedly, <a style="color:#ff4747" href="mailto:accounts@ynwk.org">contact
                     us</a>.</em><br>
             <button id="closeModalCorrupted" style="background-color:#ff4747"
                 class="mt-4 px-4 py-2 text-white rounded-lg">Close</button>
