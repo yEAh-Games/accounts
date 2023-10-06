@@ -72,5 +72,10 @@
     "username": "quotes",
     "password": "bf4e97926392f1637a9b0e5a02f69d2a4fb202cfa9ddd9e3453613e44d9ff676",
     "admin": false
+  },
+  {
+    "username": "newaccount123",
+    "password": "a8bf869a75f7171bcaf46f022b5905fa996fd8e17ae62934680215cc6c0a4252",
+    "admin": false
   }
 ]
