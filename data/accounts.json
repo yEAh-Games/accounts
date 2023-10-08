@@ -77,5 +77,10 @@
     "username": "newaccount123",
     "password": "a8bf869a75f7171bcaf46f022b5905fa996fd8e17ae62934680215cc6c0a4252",
     "admin": false
+  },
+  {
+    "username": "apitester123",
+    "password": "f9e17e4a9565189a3e2f548ab5e140e8ff4c7d06f1e0afd8402d4377402bba3f",
+    "admin": false
   }
 ]
