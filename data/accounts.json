@@ -82,5 +82,10 @@
     "username": "apitester123",
     "password": "f9e17e4a9565189a3e2f548ab5e140e8ff4c7d06f1e0afd8402d4377402bba3f",
     "admin": false
+  },
+  {
+    "username": "dbtest123",
+    "password": "ad1675d2f1ceb451b6fb8a63614f454b6fde07b361ec5061de5602a0e2200ecc",
+    "admin": false
   }
 ]
