@@ -1,0 +1,38 @@
+[
+    {
+        "scope": "username",
+        "name": "username",
+        "description": "The user's username.",
+        "methods": {
+            "read": {
+                "allowed": 3
+            }
+        }
+    },
+    {
+        "scope": "email",
+        "name": "email address",
+        "description": "The user's email address",
+        "methods": {
+            "read": {
+                "allowed": 1
+            },
+            "write": {
+                "allowed": 0
+            }
+        }
+    },
+    {
+        "scope": "balance",
+        "title": "balance",
+        "description": "The user's Yank balance",
+        "methods": {
+            "read": {
+                "allowed": 3
+            },
+            "write": {
+                "allowed": 0
+            }
+        }
+    }
+]
