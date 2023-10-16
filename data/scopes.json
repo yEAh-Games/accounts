@@ -8,7 +8,7 @@
                 "allowed": 3
             }
         },
-        "column": "eq.username"
+        "column": "username"
     },
     {
         "scope": "email",
